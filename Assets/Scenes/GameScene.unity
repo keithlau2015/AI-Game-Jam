@@ -251101,6 +251101,7 @@ MonoBehaviour:
   - Alien
   - CM vcam1
   - SpawnPoint
+  floorLayout: {fileID: 11400000, guid: 38accc9674b58d447ba279d0ac33d233, type: 2}
   timeLimit: 90
   targetOutput: 50
   autoStartOnLoad: 1

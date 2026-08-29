@@ -22,6 +22,7 @@ namespace Platformer.Mechanics
             "SpawnPoint"
         };
 
+        public WorkFloorLayout floorLayout;
         public float timeLimit = 90f;
         public int targetOutput = 50;
         public bool autoStartOnLoad = true;
@@ -89,6 +90,12 @@ namespace Platformer.Mechanics
                 sessionHudObject.AddComponent<SessionHUDController>();
             }
 
+            if (FindFirstObjectByType<WorkerPlacementConfirmUI>() == null)
+            {
+                var confirmObject = new GameObject("WorkerPlacementConfirmUI");
+                confirmObject.AddComponent<WorkerPlacementConfirmUI>();
+            }
+
             EnsureGameOverUI();
         }
 
@@ -119,22 +126,117 @@ namespace Platformer.Mechanics
             workRoot = new GameObject("WorkSession").transform;
             workRoot.SetParent(transform, false);
 
+            if (floorLayout != null)
+            {
+                ApplyCameraFromLayout();
+                CreateBackgroundFromLayout();
+            }
+
             var stationsParent = new GameObject("Stations").transform;
             stationsParent.SetParent(workRoot, false);
 
             var rosterParent = new GameObject("Roster").transform;
             rosterParent.SetParent(workRoot, false);
 
-            var stationA = CreateStation(stationsParent, "Builder Bay", WorkerRole.Builder, new Vector3(-2f, 2f, 0f), new Color(0.55f, 0.3f, 0.2f, 1f));
-            var stationB = CreateStation(stationsParent, "Analysis Desk", WorkerRole.Analyst, new Vector3(2f, 2f, 0f), new Color(0.2f, 0.35f, 0.6f, 1f));
-            var stationC = CreateStation(stationsParent, "Courier Hub", WorkerRole.Courier, new Vector3(-2f, -2f, 0f), new Color(0.2f, 0.5f, 0.25f, 1f));
-            var stationD = CreateStation(stationsParent, "Open Floor", WorkerRole.Any, new Vector3(2f, -2f, 0f), new Color(0.45f, 0.4f, 0.55f, 1f));
+            WorkStation[] stations;
+            if (floorLayout != null && floorLayout.stations != null && floorLayout.stations.Length > 0)
+                stations = BuildStationsFromLayout(stationsParent);
+            else
+                stations = BuildDefaultStations(stationsParent);
 
             roundController = GetComponent<RoundController>();
             if (roundController == null)
                 roundController = gameObject.AddComponent<RoundController>();
-            roundController.stations = new[] { stationA, stationB, stationC, stationD };
+            roundController.stations = stations;
 
+            if (floorLayout != null && floorLayout.rosterSlots != null && floorLayout.rosterSlots.Length > 0)
+                BuildRosterFromLayout(rosterParent);
+            else
+                BuildDefaultRoster(rosterParent);
+        }
+
+        void ApplyCameraFromLayout()
+        {
+            var cameraSetup = FindFirstObjectByType<TopDownCameraSetup>();
+            if (cameraSetup == null)
+                cameraSetup = gameObject.AddComponent<TopDownCameraSetup>();
+
+            cameraSetup.position = new Vector3(floorLayout.cameraPosition.x, floorLayout.cameraPosition.y, -10f);
+            cameraSetup.orthographicSize = floorLayout.cameraOrthographicSize;
+
+            var camera = Camera.main;
+            if (camera == null)
+            {
+                var cameraObject = new GameObject("Main Camera", typeof(Camera));
+                cameraObject.tag = "MainCamera";
+                camera = cameraObject.GetComponent<Camera>();
+            }
+
+            camera.gameObject.SetActive(true);
+            camera.orthographic = true;
+            camera.orthographicSize = floorLayout.cameraOrthographicSize;
+            camera.transform.position = cameraSetup.position;
+        }
+
+        void CreateBackgroundFromLayout()
+        {
+            if (floorLayout.backgroundSprite == null)
+                return;
+
+            var backgroundObject = new GameObject("WorkFloorBackground", typeof(SpriteRenderer));
+            backgroundObject.transform.SetParent(workRoot, false);
+            backgroundObject.transform.position = new Vector3(
+                floorLayout.backgroundOrigin.x + floorLayout.worldSize.x * 0.5f,
+                floorLayout.backgroundOrigin.y + floorLayout.worldSize.y * 0.5f,
+                0f);
+
+            var sprite = backgroundObject.GetComponent<SpriteRenderer>();
+            sprite.sprite = floorLayout.backgroundSprite;
+            sprite.sortingOrder = 0;
+
+            var spriteSize = floorLayout.backgroundSprite.bounds.size;
+            if (spriteSize.x > 0f && spriteSize.y > 0f)
+            {
+                backgroundObject.transform.localScale = new Vector3(
+                    floorLayout.worldSize.x / spriteSize.x,
+                    floorLayout.worldSize.y / spriteSize.y,
+                    1f);
+            }
+        }
+
+        WorkStation[] BuildStationsFromLayout(Transform parent)
+        {
+            var stations = new WorkStation[floorLayout.stations.Length];
+            for (var i = 0; i < floorLayout.stations.Length; i++)
+            {
+                var definition = floorLayout.stations[i];
+                var position = floorLayout.NormalizedToWorld(definition.normalizedPosition);
+                stations[i] = CreateStationFromDefinition(parent, definition, position);
+            }
+            return stations;
+        }
+
+        WorkStation[] BuildDefaultStations(Transform parent)
+        {
+            var stationA = CreateStationFromDefinition(parent, DefaultPermanent("Builder Bay", WorkerRole.Builder, new Color(0.55f, 0.3f, 0.2f, 1f), 2), new Vector3(-2f, 2f, 0f));
+            var stationB = CreateStationFromDefinition(parent, DefaultPermanent("Analysis Desk", WorkerRole.Analyst, new Color(0.2f, 0.35f, 0.6f, 1f), 2), new Vector3(2f, 2f, 0f));
+            var stationC = CreateStationFromDefinition(parent, DefaultTimed("Rush Courier Job", WorkerRole.Courier, new Color(0.2f, 0.5f, 0.25f, 1f), 10f, 60f, 10f, 1, 10), new Vector3(-2f, -2f, 0f));
+            var stationD = CreateStationFromDefinition(parent, DefaultTimed("Emergency Build", WorkerRole.Builder, new Color(0.75f, 0.45f, 0.2f, 1f), 15f, 55f, 14f, 1, 12), new Vector3(2f, -2f, 0f));
+            CreateLabel(parent, "Work Stations", new Vector3(0f, 3.5f, 0f));
+            return new[] { stationA, stationB, stationC, stationD };
+        }
+
+        void BuildRosterFromLayout(Transform parent)
+        {
+            for (var i = 0; i < floorLayout.rosterSlots.Length; i++)
+            {
+                var slot = floorLayout.rosterSlots[i];
+                CreateWorker(parent, slot.role, floorLayout.NormalizedToWorld(slot.normalizedPosition));
+            }
+        }
+
+        void BuildDefaultRoster(Transform parent)
+        {
             var rosterPositions = new[]
             {
                 new Vector3(-6f, 1.5f, 0f),
@@ -152,34 +254,89 @@ namespace Platformer.Mechanics
             };
 
             for (var i = 0; i < rosterPositions.Length; i++)
-                CreateWorker(rosterParent, roles[i], rosterPositions[i]);
+                CreateWorker(parent, roles[i], rosterPositions[i]);
 
-            CreateLabel(rosterParent, "Workers", new Vector3(-6f, 2.5f, 0f));
-            CreateLabel(stationsParent, "Work Stations", new Vector3(0f, 3.5f, 0f));
+            CreateLabel(parent, "Workers", new Vector3(-6f, 2.5f, 0f));
         }
 
-        WorkStation CreateStation(Transform parent, string label, WorkerRole role, Vector3 position, Color color)
+        static WorkStationDefinition DefaultPermanent(string label, WorkerRole role, Color color, int capacity)
         {
+            return new WorkStationDefinition
+            {
+                stationId = label,
+                displayLabel = label,
+                requiredRole = role,
+                tint = color,
+                capacity = capacity,
+                outputPerWorker = 3f,
+                mode = WorkStationMode.PermanentProduction
+            };
+        }
+
+        static WorkStationDefinition DefaultTimed(string label, WorkerRole role, Color color, float spawnStart, float spawnEnd, float duration, int capacity, int reward)
+        {
+            return new WorkStationDefinition
+            {
+                stationId = label,
+                displayLabel = label,
+                requiredRole = role,
+                tint = color,
+                capacity = capacity,
+                mode = WorkStationMode.TimedTask,
+                spawnWindowStart = spawnStart,
+                spawnWindowEnd = spawnEnd,
+                taskDuration = duration,
+                taskOutputReward = reward,
+                taskProgressPerWorker = 1.2f,
+                correctWorkerSpeedMultiplier = 2f,
+                activeTaskRoundTimeBonus = 0.35f
+            };
+        }
+
+        WorkStation CreateStationFromDefinition(Transform parent, WorkStationDefinition definition, Vector3 position)
+        {
+            var label = string.IsNullOrEmpty(definition.displayLabel) ? definition.stationId : definition.displayLabel;
             var stationObject = new GameObject(label, typeof(SpriteRenderer), typeof(BoxCollider2D), typeof(WorkStation));
             stationObject.transform.SetParent(parent, false);
             stationObject.transform.position = position;
-            stationObject.transform.localScale = new Vector3(2.4f, 1.6f, 1f);
+            stationObject.transform.localScale = Vector3.one;
+
+            var overlayAlpha = floorLayout != null ? floorLayout.stationOverlayAlpha : 1f;
+            var showOverlay = floorLayout == null || floorLayout.showStationOverlay;
+            var stationColor = definition.tint;
+            if (showOverlay && floorLayout != null)
+                stationColor.a = overlayAlpha;
 
             var sprite = stationObject.GetComponent<SpriteRenderer>();
             sprite.sprite = squareSprite;
-            sprite.color = color;
-            sprite.sortingOrder = 1;
+            sprite.color = showOverlay ? stationColor : new Color(stationColor.r, stationColor.g, stationColor.b, 0f);
+            sprite.sortingOrder = 2;
+            sprite.transform.localScale = new Vector3(definition.visualScale.x, definition.visualScale.y, 1f);
 
             var collider = stationObject.GetComponent<BoxCollider2D>();
             collider.isTrigger = false;
+            collider.size = definition.colliderSize;
 
             var station = stationObject.GetComponent<WorkStation>();
-            station.stationId = label;
-            station.requiredRole = role;
-            station.capacity = 2;
-            station.outputPerWorker = 3f;
+            station.stationId = definition.stationId;
+            station.requiredRole = definition.requiredRole;
+            station.mode = definition.mode;
+            station.capacity = definition.capacity;
+            station.outputPerWorker = definition.outputPerWorker;
+            station.spawnWindowStart = definition.spawnWindowStart;
+            station.spawnWindowEnd = definition.spawnWindowEnd;
+            station.taskDuration = definition.taskDuration;
+            station.taskProgressPerWorker = definition.taskProgressPerWorker;
+            station.correctWorkerSpeedMultiplier = definition.correctWorkerSpeedMultiplier;
+            station.activeTaskRoundTimeBonus = definition.activeTaskRoundTimeBonus;
+            station.taskOutputReward = definition.taskOutputReward;
 
-            CreateLabel(stationObject.transform, label, new Vector3(0f, 1.1f, 0f));
+            if (definition.mode == WorkStationMode.TimedTask)
+                stationObject.SetActive(false);
+
+            if (showOverlay)
+                CreateLabel(stationObject.transform, label, new Vector3(0f, 0.55f, 0f));
+
             return station;
         }
 
@@ -227,7 +384,25 @@ namespace Platformer.Mechanics
             if (mainCanvas != null)
                 mainCanvas.gameObject.SetActive(true);
 
+            HideMenuPanels();
             EnsureStartPanel();
+        }
+
+        void HideMenuPanels()
+        {
+            var metaGame = GetComponent<MetaGameController>();
+            if (metaGame != null)
+            {
+                metaGame.TogglePauseMenu(false);
+                return;
+            }
+
+            if (mainCanvas == null)
+                return;
+
+            var menu = mainCanvas.GetComponent<MainUIController>();
+            if (menu != null)
+                menu.HideAllPanels();
         }
 
         void EnsureStartPanel()

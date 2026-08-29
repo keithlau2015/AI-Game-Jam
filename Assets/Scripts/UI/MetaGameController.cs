@@ -1,76 +1,121 @@
-using Platformer.Mechanics;
-using Platformer.UI;
+using Platformer.Core;
+using Platformer.Model;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Platformer.UI
 {
-    /// <summary>
-    /// The MetaGameController is responsible for switching control between the high level
-    /// contexts of the application, eg the Main Menu and Gameplay systems.
-    /// </summary>
     public class MetaGameController : MonoBehaviour
     {
-        /// <summary>
-        /// The main UI object which used for the menu.
-        /// </summary>
         public MainUIController mainMenu;
-
-        /// <summary>
-        /// A list of canvas objects which are used during gameplay (when the main ui is turned off)
-        /// </summary>
         public Canvas[] gamePlayCanvasii;
+        public int pausePanelIndex = 1;
+        public string pausePanelName = "Settings";
 
-        /// <summary>
-        /// The game controller.
-        /// </summary>
-        public GameController gameController;
+        SessionModel session;
+        InputAction menuAction;
+        bool pauseOpen;
 
-        bool showMainCanvas = false;
-        private InputAction m_MenuAction;
+        void Awake()
+        {
+            session = Simulation.GetModel<SessionModel>();
+        }
 
         void OnEnable()
         {
-            _ToggleMainMenu(showMainCanvas);
-            m_MenuAction = InputSystem.actions.FindAction("Player/Menu");
+            menuAction = InputSystem.actions.FindAction("Player/Menu");
+            menuAction?.Enable();
+            ClosePauseMenu(resumeTime: true);
         }
 
-        /// <summary>
-        /// Turn the main menu on or off.
-        /// </summary>
-        /// <param name="show"></param>
-        public void ToggleMainMenu(bool show)
+        void OnDisable()
         {
-            if (this.showMainCanvas != show)
-            {
-                _ToggleMainMenu(show);
-            }
-        }
-
-        void _ToggleMainMenu(bool show)
-        {
-            if (show)
-            {
-                Time.timeScale = 0;
-                mainMenu.gameObject.SetActive(true);
-                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(false);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                mainMenu.gameObject.SetActive(false);
-                foreach (var i in gamePlayCanvasii) i.gameObject.SetActive(true);
-            }
-            this.showMainCanvas = show;
+            menuAction?.Disable();
         }
 
         void Update()
         {
-            if (m_MenuAction.WasPressedThisFrame())
-            {
-                ToggleMainMenu(show: !showMainCanvas);
-            }
+            if (menuAction == null || !menuAction.WasPressedThisFrame())
+                return;
+
+            if (pauseOpen)
+                ClosePauseMenu(resumeTime: CanResumeGameplay());
+            else
+                OpenPauseMenu();
         }
 
+        public void TogglePauseMenu(bool show)
+        {
+            if (show)
+                OpenPauseMenu();
+            else
+                ClosePauseMenu(resumeTime: CanResumeGameplay());
+        }
+
+        void OpenPauseMenu()
+        {
+            if (mainMenu == null || pauseOpen || !CanOpenPauseMenu())
+                return;
+
+            pauseOpen = true;
+            mainMenu.gameObject.SetActive(true);
+            ShowPausePanel();
+            Time.timeScale = 0f;
+            if (session != null)
+                session.round.dragEnabled = false;
+        }
+
+        void ClosePauseMenu(bool resumeTime)
+        {
+            if (mainMenu == null)
+                return;
+
+            pauseOpen = false;
+            mainMenu.HideAllPanels();
+
+            if (resumeTime && CanResumeGameplay())
+                Time.timeScale = 1f;
+
+            if (session != null && session.round.phase == RoundPhase.Playing && !session.eventState.awaitingDecision)
+                session.round.dragEnabled = true;
+        }
+
+        void ShowPausePanel()
+        {
+            var panel = mainMenu.FindPanel(pausePanelName);
+            if (panel != null)
+            {
+                mainMenu.HideAllPanels();
+                panel.SetActive(true);
+                return;
+            }
+
+            if (pausePanelIndex >= 0 && mainMenu.panels != null && pausePanelIndex < mainMenu.panels.Length)
+                mainMenu.SetActivePanel(pausePanelIndex);
+        }
+
+        bool CanOpenPauseMenu()
+        {
+            if (session == null)
+                return true;
+
+            if (session.round.phase == RoundPhase.Won || session.round.phase == RoundPhase.Lost)
+                return false;
+
+            if (session.eventState.awaitingDecision)
+                return false;
+
+            return true;
+        }
+
+        bool CanResumeGameplay()
+        {
+            if (session == null)
+                return true;
+
+            return !session.eventState.awaitingDecision
+                && session.round.phase != RoundPhase.Won
+                && session.round.phase != RoundPhase.Lost;
+        }
     }
 }

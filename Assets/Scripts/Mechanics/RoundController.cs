@@ -15,13 +15,18 @@ namespace Platformer.Mechanics
 
         SessionModel session;
         float productionBuffer;
+        TaskAreaManager taskAreaManager;
 
         void Awake()
         {
             Instance = this;
             session = Simulation.GetModel<SessionModel>();
+            taskAreaManager = GetComponent<TaskAreaManager>();
+            if (taskAreaManager == null)
+                taskAreaManager = gameObject.AddComponent<TaskAreaManager>();
             if (stations == null || stations.Length == 0)
                 stations = GetComponentsInChildren<WorkStation>(true);
+            taskAreaManager.taskStations = stations;
         }
 
         void OnDestroy()
@@ -45,7 +50,13 @@ namespace Platformer.Mechanics
             if (session.eventState.awaitingDecision)
                 return;
 
-            session.round.timeRemaining -= Time.deltaTime;
+            var deltaTime = Time.deltaTime;
+            var elapsed = session.round.timeLimit - session.round.timeRemaining;
+            if (taskAreaManager != null)
+                taskAreaManager.Tick(deltaTime, elapsed);
+
+            var timeBonus = taskAreaManager != null ? taskAreaManager.GetRoundTimeBonus() : 0f;
+            session.round.timeRemaining -= deltaTime * (1f + timeBonus);
             if (session.round.timeRemaining <= 0f)
             {
                 session.round.timeRemaining = 0f;
@@ -56,7 +67,7 @@ namespace Platformer.Mechanics
                 return;
             }
 
-            TickProduction(Time.deltaTime);
+            TickProduction(deltaTime);
             if (session.round.currentOutput >= session.round.targetOutput)
                 Schedule<RoundWon>();
         }
@@ -91,6 +102,23 @@ namespace Platformer.Mechanics
             session.round.dragEnabled = true;
             session.sessionStarted = true;
             productionBuffer = 0f;
+            if (taskAreaManager != null)
+                taskAreaManager.PrepareForRound();
+            else
+            {
+                for (var i = 0; i < stations.Length; i++)
+                {
+                    if (stations[i] != null)
+                        stations[i].PrepareForRound();
+                }
+            }
+        }
+
+        public void AddOutput(int amount)
+        {
+            if (amount <= 0)
+                return;
+            session.round.currentOutput += amount;
         }
 
         public void SetPausedForEvent(bool paused)
@@ -120,7 +148,7 @@ namespace Platformer.Mechanics
             var candidates = new List<WorkStation>();
             for (var i = 0; i < stations.Length; i++)
             {
-                if (stations[i] != null && !stations[i].disabled)
+                if (stations[i] != null && stations[i].IsActive && !stations[i].disabled)
                     candidates.Add(stations[i]);
             }
 

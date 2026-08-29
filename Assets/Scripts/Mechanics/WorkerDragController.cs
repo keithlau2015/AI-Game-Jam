@@ -1,5 +1,6 @@
 using Platformer.Core;
 using Platformer.Model;
+using Platformer.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,20 +10,36 @@ namespace Platformer.Mechanics
     {
         public Camera worldCamera;
         public LayerMask pickMask = ~0;
+        public float stationSnapRadius = 2f;
+        public float stationBoundsPadding = 0.75f;
+        public WorkerPlacementConfirmUI confirmUI;
 
         SessionModel session;
         WorkerUnit activeWorker;
+        WorkerUnit pendingWorker;
+        WorkStation pendingStation;
         bool pointerHeld;
+        bool awaitingConfirmation;
 
         void Awake()
         {
             session = Simulation.GetModel<SessionModel>();
             if (worldCamera == null)
                 worldCamera = Camera.main;
+            if (confirmUI == null)
+                confirmUI = FindAnyObjectByType<WorkerPlacementConfirmUI>();
+            if (confirmUI == null)
+            {
+                var uiObject = new GameObject("WorkerPlacementConfirmUI");
+                confirmUI = uiObject.AddComponent<WorkerPlacementConfirmUI>();
+            }
         }
 
         void Update()
         {
+            if (awaitingConfirmation)
+                return;
+
             if (!CanInteract())
             {
                 if (pointerHeld && activeWorker != null)
@@ -42,24 +59,6 @@ namespace Platformer.Mechanics
                 if (TryGetPointerUp(out screenPosition))
                     EndPick(screenPosition);
             }
-        }
-
-        bool TryGetPointerPosition(out Vector2 screenPosition)
-        {
-            if (Mouse.current != null && Mouse.current.leftButton.isPressed)
-            {
-                screenPosition = Mouse.current.position.ReadValue();
-                return true;
-            }
-
-            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
-            {
-                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
-                return true;
-            }
-
-            screenPosition = default;
-            return false;
         }
 
         bool CanInteract()
@@ -93,12 +92,18 @@ namespace Platformer.Mechanics
             if (activeWorker == null)
                 return;
 
-            var world = ScreenToWorld(screenPosition);
-            var station = FindStationAt(world);
+            var pointerWorld = ScreenToWorld(screenPosition);
+            var workerWorld = activeWorker.transform.position;
+            var station = FindBestStation(activeWorker, pointerWorld)
+                ?? FindBestStation(activeWorker, workerWorld);
 
-            if (station != null && station.TryAssign(activeWorker))
+            if (station != null)
             {
+                pendingWorker = activeWorker;
+                pendingStation = station;
                 activeWorker = null;
+                awaitingConfirmation = true;
+                confirmUI.Show(pendingWorker, pendingStation, ConfirmPlacement, CancelPlacement);
                 return;
             }
 
@@ -106,31 +111,107 @@ namespace Platformer.Mechanics
             activeWorker = null;
         }
 
-        WorkStation FindStationAt(Vector3 worldPosition)
+        void ConfirmPlacement()
         {
-            if (RoundController.Instance == null || RoundController.Instance.stations == null)
+            if (pendingWorker != null && pendingStation != null)
+            {
+                if (!pendingStation.TryAssign(pendingWorker))
+                    pendingWorker.CancelDrag();
+            }
+
+            ClearPending();
+        }
+
+        void CancelPlacement()
+        {
+            pendingWorker?.CancelDrag();
+            ClearPending();
+        }
+
+        void ClearPending()
+        {
+            pendingWorker = null;
+            pendingStation = null;
+            awaitingConfirmation = false;
+        }
+
+        WorkStation FindBestStation(WorkerUnit worker, Vector3 worldPosition)
+        {
+            var stations = ResolveStations();
+            if (stations == null || stations.Length == 0)
                 return null;
 
-            var stations = RoundController.Instance.stations;
+            WorkStation nearest = null;
+            var nearestDistance = float.MaxValue;
+
             for (var i = 0; i < stations.Length; i++)
             {
                 var station = stations[i];
-                if (station == null)
+                if (station == null || !station.IsActive || !station.CanAccept(worker))
                     continue;
-                var collider = station.GetComponent<Collider2D>();
-                if (collider != null && collider.OverlapPoint(worldPosition))
+
+                if (StationContainsPoint(station, worldPosition))
                     return station;
+
+                var distance = Vector2.Distance(worldPosition, station.transform.position);
+                if (distance <= stationSnapRadius && distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearest = station;
+                }
             }
 
-            return null;
+            return nearest;
+        }
+
+        bool StationContainsPoint(WorkStation station, Vector3 worldPosition)
+        {
+            var collider = station.GetComponent<Collider2D>();
+            if (collider == null)
+                return false;
+
+            var bounds = collider.bounds;
+            bounds.Expand(stationBoundsPadding);
+            return bounds.Contains(worldPosition);
+        }
+
+        WorkStation[] ResolveStations()
+        {
+            if (RoundController.Instance != null
+                && RoundController.Instance.stations != null
+                && RoundController.Instance.stations.Length > 0)
+                return RoundController.Instance.stations;
+
+            return FindObjectsByType<WorkStation>(FindObjectsSortMode.None);
         }
 
         Vector3 ScreenToWorld(Vector2 screenPosition)
         {
-            var depth = worldCamera != null ? Mathf.Abs(worldCamera.transform.position.z) : 10f;
+            if (worldCamera == null)
+                return Vector3.zero;
+
+            var depth = Mathf.Abs(worldCamera.transform.position.z);
             var world = worldCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth));
             world.z = 0f;
             return world;
+        }
+
+        bool TryGetPointerPosition(out Vector2 screenPosition)
+        {
+            if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+            {
+                screenPosition = Mouse.current.position.ReadValue();
+                return true;
+            }
+
+            if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+            {
+                screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+                return true;
+            }
+
+            screenPosition = default;
+            return false;
         }
 
         bool TryGetPointerDown(out Vector2 screenPosition)
