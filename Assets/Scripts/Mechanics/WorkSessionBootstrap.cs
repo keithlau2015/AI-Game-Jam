@@ -30,6 +30,8 @@ namespace Platformer.Mechanics
         public GameObject winPanelPrefab;
         public GameObject losePanelPrefab;
         public EndingCatalog endingCatalog;
+        public GameObject gameplayHudPrefab;
+        public PopupTaskPool popupTaskPool;
 
         static Sprite squareSprite;
         Transform workRoot;
@@ -108,7 +110,20 @@ namespace Platformer.Mechanics
                 rosterBarObject.AddComponent<WorkerRosterBarUI>();
             }
 
+            EnsurePopupTaskSpawner();
             EnsureGameOverUI();
+        }
+
+        void EnsurePopupTaskSpawner()
+        {
+            var spawner = GetComponent<PopupTaskSpawner>();
+            if (spawner == null)
+                spawner = gameObject.AddComponent<PopupTaskSpawner>();
+            spawner.floorLayout = floorLayout;
+            if (popupTaskPool == null)
+                popupTaskPool = Resources.Load<PopupTaskPool>("FamilyPopupTaskPool");
+            spawner.taskPool = popupTaskPool;
+            spawner.maxActiveTasks = popupTaskPool != null ? popupTaskPool.maxConcurrentTasks : 3;
         }
 
         void EnsureGameOverUI()
@@ -369,16 +384,16 @@ namespace Platformer.Mechanics
 
         void CreateWorker(Transform parent, WorkerRole role, Vector3 homePosition, string workerName = null)
         {
-            var workerObject = new GameObject($"Worker_{workerName ?? role.ToString()}", typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(WorkerUnit));
+            var workerObject = new GameObject($"Worker_{workerName ?? role.ToString()}", typeof(SpriteRenderer), typeof(BoxCollider2D), typeof(WorkerUnit));
             workerObject.transform.SetParent(parent, false);
-            workerObject.transform.localScale = Vector3.one * 0.7f;
+            workerObject.transform.localScale = Vector3.one;
 
             var sprite = workerObject.GetComponent<SpriteRenderer>();
             sprite.sprite = squareSprite;
             sprite.sortingOrder = 10;
 
-            var collider = workerObject.GetComponent<CircleCollider2D>();
-            collider.radius = 0.45f;
+            var collider = workerObject.GetComponent<BoxCollider2D>();
+            collider.size = Vector2.one;
 
             var worker = workerObject.GetComponent<WorkerUnit>();
             worker.Initialize(role, homePosition, workerName);
@@ -411,8 +426,62 @@ namespace Platformer.Mechanics
             if (mainCanvas != null)
                 mainCanvas.gameObject.SetActive(true);
 
+            EnsureGameplayHUD();
             HideMenuPanels();
             EnsureStartPanel();
+        }
+
+        void EnsureGameplayHUD()
+        {
+            if (FindFirstObjectByType<GameplayHUDView>() != null)
+                return;
+
+            var canvas = mainCanvas != null ? mainCanvas : FindFirstObjectByType<Canvas>();
+            if (canvas == null)
+                return;
+
+            if (gameplayHudPrefab == null)
+            {
+#if UNITY_EDITOR
+                gameplayHudPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/UI/prefab/GameplayHUD_p.prefab");
+#endif
+            }
+
+            if (gameplayHudPrefab == null)
+                return;
+
+            var hudInstance = Instantiate(gameplayHudPrefab, canvas.transform);
+            hudInstance.name = "GameplayHUD";
+            StripNestedCanvas(hudInstance);
+            StretchToParent(hudInstance);
+        }
+
+        static void StripNestedCanvas(GameObject hudInstance)
+        {
+            var nestedCanvas = hudInstance.GetComponent<Canvas>();
+            if (nestedCanvas != null)
+                Destroy(nestedCanvas);
+
+            var scaler = hudInstance.GetComponent<CanvasScaler>();
+            if (scaler != null)
+                Destroy(scaler);
+
+            var raycaster = hudInstance.GetComponent<GraphicRaycaster>();
+            if (raycaster != null)
+                Destroy(raycaster);
+        }
+
+        static void StretchToParent(GameObject hudInstance)
+        {
+            var rect = hudInstance.GetComponent<RectTransform>();
+            if (rect == null)
+                return;
+
+            rect.localScale = Vector3.one;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
         }
 
         void HideMenuPanels()

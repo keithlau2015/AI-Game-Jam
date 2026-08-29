@@ -12,6 +12,7 @@ namespace Platformer.Mechanics
         public WorkerState state = WorkerState.InRoster;
         public WorkerAttributes attributes;
         public string displayName = "Worker";
+        public FamilyMemberId familyMember = FamilyMemberId.None;
 
         Vector3 homePosition;
         WorkStation currentStation;
@@ -24,10 +25,12 @@ namespace Platformer.Mechanics
         {
             role = workerRole;
             displayName = string.IsNullOrEmpty(workerName) ? workerRole.ToString() : workerName;
+            familyMember = FamilyMemberRules.FromDisplayName(displayName);
             homePosition = rosterHome;
             attributes = WorkerAttributes.CreateRandom(workerRole);
             transform.position = rosterHome;
             ApplyVisual();
+            ApplyRosterVisibility();
         }
 
         public string GetAttributeSummary()
@@ -78,6 +81,51 @@ namespace Platformer.Mechanics
             pickCollider = GetComponent<Collider2D>();
         }
 
+        public void SyncRosterPickArea(Vector3 center, Vector2 worldSize)
+        {
+            if (state != WorkerState.InRoster)
+                return;
+
+            homePosition = center;
+            transform.position = center;
+
+            if (spriteRenderer != null && spriteRenderer.sprite != null)
+            {
+                var spriteSize = spriteRenderer.sprite.bounds.size;
+                if (spriteSize.x > 0f && spriteSize.y > 0f)
+                {
+                    transform.localScale = new Vector3(
+                        worldSize.x / spriteSize.x,
+                        worldSize.y / spriteSize.y,
+                        1f);
+                }
+            }
+
+            if (pickCollider is BoxCollider2D box)
+            {
+                box.size = Vector2.one;
+                box.offset = Vector2.zero;
+            }
+        }
+
+        public bool ContainsPickPoint(Vector3 worldPoint)
+        {
+            if (state == WorkerState.InRoster)
+            {
+                if (pickCollider != null && pickCollider.enabled)
+                    return pickCollider.OverlapPoint(worldPoint);
+                return false;
+            }
+
+            if (spriteRenderer != null && spriteRenderer.enabled)
+                return spriteRenderer.bounds.Contains(worldPoint);
+
+            if (pickCollider != null && pickCollider.enabled)
+                return pickCollider.OverlapPoint(worldPoint);
+
+            return false;
+        }
+
         public void BeginDrag()
         {
             state = WorkerState.Dragging;
@@ -89,7 +137,11 @@ namespace Platformer.Mechanics
             if (pickCollider != null)
                 pickCollider.enabled = false;
             if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = true;
                 spriteRenderer.sortingOrder = 20;
+            }
+            transform.localScale = Vector3.one * 0.7f;
         }
 
         public void UpdateDragPosition(Vector3 worldPosition)
@@ -109,7 +161,11 @@ namespace Platformer.Mechanics
             if (pickCollider != null)
                 pickCollider.enabled = true;
             if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = true;
                 spriteRenderer.sortingOrder = 5;
+            }
+            transform.localScale = Vector3.one * 0.7f;
 
             var slotIndex = station.AssignedWorkers.Count - 1;
             var offset = GetSlotOffset(slotIndex);
@@ -133,12 +189,20 @@ namespace Platformer.Mechanics
                 pickCollider.enabled = true;
             if (spriteRenderer != null)
                 spriteRenderer.sortingOrder = 10;
+            ApplyRosterVisibility();
         }
 
         public void SetPickEnabled(bool enabled)
         {
             if (pickCollider != null)
                 pickCollider.enabled = enabled;
+        }
+
+        void ApplyRosterVisibility()
+        {
+            if (spriteRenderer == null)
+                return;
+            spriteRenderer.enabled = state != WorkerState.InRoster;
         }
 
         static Vector3 GetSlotOffset(int slotIndex)

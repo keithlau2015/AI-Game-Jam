@@ -40,7 +40,10 @@ namespace Platformer.UI
 
         string BuildMessage(WorkerUnit worker, WorkStation station)
         {
-            var roleText = WorkerColorRules.BuildAllowedColorsLabel(station.acceptAnyMember, station.GetAllowedMemberColors());
+            var popup = station.GetComponent<PopupTaskBehaviour>();
+            var roleText = popup != null && popup.IsPopupTask
+                ? popup.RequirementLabel
+                : WorkerColorRules.BuildAllowedColorsLabel(station.acceptAnyMember, station.GetAllowedMemberColors());
             var memberColor = WorkerColorRules.GetDisplayName(worker.GetMemberColor());
             var jobRole = worker.GetJobRoleForStation(station);
             var skill = worker.GetSkillForStation(station);

@@ -15,6 +15,7 @@ namespace Platformer.Mechanics
         public WorkerPlacementConfirmUI confirmUI;
 
         SessionModel session;
+        WorkerRosterBarUI rosterBarUI;
         WorkerUnit activeWorker;
         WorkerUnit pendingWorker;
         WorkStation pendingStation;
@@ -26,6 +27,7 @@ namespace Platformer.Mechanics
             session = Simulation.GetModel<SessionModel>();
             if (worldCamera == null)
                 worldCamera = Camera.main;
+            rosterBarUI = FindAnyObjectByType<WorkerRosterBarUI>();
             if (confirmUI == null)
                 confirmUI = FindAnyObjectByType<WorkerPlacementConfirmUI>();
             if (confirmUI == null)
@@ -72,13 +74,28 @@ namespace Platformer.Mechanics
 
         void BeginPick(Vector2 screenPosition)
         {
+            if (rosterBarUI == null)
+                rosterBarUI = FindAnyObjectByType<WorkerRosterBarUI>();
+
+            if (rosterBarUI != null && rosterBarUI.TryPickWorker(screenPosition, out var rosterWorker))
+            {
+                activeWorker = rosterWorker;
+                pointerHeld = true;
+                rosterWorker.BeginDrag();
+                activeWorker.UpdateDragPosition(ScreenToWorld(screenPosition));
+                return;
+            }
+
             var world = ScreenToWorld(screenPosition);
             var hit = Physics2D.OverlapPoint(world, pickMask);
             if (hit == null)
                 return;
 
             var worker = hit.GetComponent<WorkerUnit>();
-            if (worker == null || worker.state == WorkerState.Dragging)
+            if (worker == null || worker.state == WorkerState.Dragging || worker.state == WorkerState.InRoster)
+                return;
+
+            if (!worker.ContainsPickPoint(world))
                 return;
 
             activeWorker = worker;
@@ -177,10 +194,12 @@ namespace Platformer.Mechanics
 
         WorkStation[] ResolveStations()
         {
-            if (RoundController.Instance != null
-                && RoundController.Instance.stations != null
-                && RoundController.Instance.stations.Length > 0)
-                return RoundController.Instance.stations;
+            if (RoundController.Instance != null)
+            {
+                var all = RoundController.Instance.GetAllStations();
+                if (all != null && all.Length > 0)
+                    return all;
+            }
 
             return FindObjectsByType<WorkStation>(FindObjectsSortMode.None);
         }

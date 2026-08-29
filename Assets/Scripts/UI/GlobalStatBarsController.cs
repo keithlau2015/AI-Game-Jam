@@ -18,11 +18,16 @@ namespace Platformer.UI
         public GlobalStatBarView stressBar;
         public GlobalStatBarView rapportBar;
 
+        FamilyStatBarPanelView hopePanel;
+        FamilyStatBarPanelView stressPanel;
+        FamilyStatBarPanelView rapportPanel;
+
         SessionModel session;
 
         void Awake()
         {
             session = Simulation.GetModel<SessionModel>();
+            BindPanels();
             EnsureUI();
             RandomEventTriggered.OnExecute += OnChanged;
             RandomEventResolved.OnExecute += OnChanged;
@@ -49,9 +54,32 @@ namespace Platformer.UI
         void OnRoundEnded(RoundWon _) => Refresh();
         void OnRoundEnded(RoundLost _) => Refresh();
 
+        void BindPanels()
+        {
+            var hud = GameplayHUDView.Instance;
+            if (hud == null)
+                return;
+
+            hopePanel = hud.hopeBar;
+            stressPanel = hud.stressBar;
+            rapportPanel = hud.rapportBar;
+        }
+
         public void Refresh()
         {
-            if (session == null || hopeBar == null)
+            if (session == null)
+                return;
+
+            if (hopePanel == null)
+                BindPanels();
+
+            if (hopePanel != null)
+            {
+                hopePanel.Set(session.hope, session.statMin, session.statMax);
+                return;
+            }
+
+            if (hopeBar == null)
                 return;
 
             hopeBar.Set("Hope", session.hope, session.statMin, session.statMax, HopeColor);
@@ -61,7 +89,7 @@ namespace Platformer.UI
 
         void EnsureUI()
         {
-            if (hopeBar != null)
+            if (hopePanel != null || hopeBar != null)
                 return;
 
             var canvas = FindFirstObjectByType<Canvas>();

@@ -11,6 +11,7 @@ namespace Platformer.Model
         WaitingToSpawn,
         MissedSpawn,
         Active,
-        Completed
+        Completed,
+        Failed
     }
 }

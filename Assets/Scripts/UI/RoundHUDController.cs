@@ -12,10 +12,13 @@ namespace Platformer.UI
         public TMP_Text statusText;
 
         SessionModel session;
+        TMP_Text dayText;
+        TMP_Text timeText;
 
         void Awake()
         {
             session = Simulation.GetModel<SessionModel>();
+            BindHudTexts();
             EnsureHUD();
             RoundWon.OnExecute += OnRoundEnded;
             RoundLost.OnExecute += OnRoundEnded;
@@ -41,18 +44,36 @@ namespace Platformer.UI
         void OnEventChanged(RandomEventTriggered _) => Refresh();
         void OnEventChanged(RandomEventResolved _) => Refresh();
 
+        void BindHudTexts()
+        {
+            var hud = GameplayHUDView.Instance;
+            if (hud == null)
+                return;
+
+            hud.EnsureBindings();
+            dayText = hud.dayText;
+            timeText = hud.timeText;
+            if (statusText == null)
+                statusText = hud.statusText;
+        }
+
         void Refresh()
         {
             if (session == null)
                 return;
 
+            var seconds = Mathf.CeilToInt(session.round.timeRemaining);
+            var minutes = seconds / 60;
+            var remainder = seconds % 60;
+
+            if (dayText != null)
+                dayText.text = $"{session.currentDay}<size=50%>/{SessionModel.TotalDays}</size>";
+
+            if (timeText != null)
+                timeText.text = $"{minutes:00}:{remainder:00}";
+
             if (timerText != null)
-            {
-                var seconds = Mathf.CeilToInt(session.round.timeRemaining);
-                var minutes = seconds / 60;
-                var remainder = seconds % 60;
                 timerText.text = $"Day {session.currentDay}/{SessionModel.TotalDays}  {minutes:00}:{remainder:00}";
-            }
 
             if (statusText != null)
             {
@@ -69,7 +90,7 @@ namespace Platformer.UI
 
         void EnsureHUD()
         {
-            if (timerText != null)
+            if (dayText != null || timerText != null)
                 return;
 
             var canvas = FindFirstObjectByType<Canvas>();
