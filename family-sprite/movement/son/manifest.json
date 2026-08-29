@@ -1,0 +1,316 @@
+{
+  "characterId": "father",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": "base-source.png",
+  "cell": {
+    "shape": "rect",
+    "width": 64,
+    "height": 96,
+    "safe_margin_x": 6,
+    "safe_margin_y": 9
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 96,
+    "columns": 4,
+    "rows": {
+      "forward_walk": {
+        "row": 0,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "backward_walk": {
+        "row": 1,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "left_walk": {
+        "row": 2,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "right_walk": {
+        "row": 3,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "dad_suit_bag": {
+        "row": 4,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "dad_washing_dishes": {
+        "row": 5,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "father_sleep_up": {
+        "row": 6,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 256,
+    "sheetHeight": 672,
+    "cellWidth": 64,
+    "cellHeight": 96,
+    "rows": {
+      "forward_walk": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 0,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "backward_walk": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 96,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 96,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 96,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "left_walk": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 192,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 192,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "right_walk": [
+        {
+          "x": 0,
+          "y": 288,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 288,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 288,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 288,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "dad_suit_bag": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 384,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 384,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "dad_washing_dishes": [
+        {
+          "x": 0,
+          "y": 480,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 480,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 480,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 480,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "father_sleep_up": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 576,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 576,
+          "w": 64,
+          "h": 96
+        }
+      ]
+    }
+  }
+}
