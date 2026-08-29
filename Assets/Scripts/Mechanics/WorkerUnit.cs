@@ -17,6 +17,9 @@ namespace Platformer.Mechanics
         WorkStation currentStation;
         SpriteRenderer spriteRenderer;
         Collider2D pickCollider;
+        Sprite[] walkFrames;
+        float walkFrameTimer;
+        int walkFrameIndex;
 
         public WorkStation CurrentStation => currentStation;
 
@@ -28,6 +31,8 @@ namespace Platformer.Mechanics
             attributes = WorkerAttributes.CreateRandom(workerRole);
             transform.position = rosterHome;
             ApplyVisual();
+            LoadWalkAnimation();
+            SetWalkFrame(0);
         }
 
         public string GetAttributeSummary()
@@ -76,6 +81,19 @@ namespace Platformer.Mechanics
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             pickCollider = GetComponent<Collider2D>();
+        }
+
+        void Update()
+        {
+            if (state != WorkerState.Dragging || walkFrames == null || walkFrames.Length == 0)
+                return;
+
+            walkFrameTimer += Time.deltaTime;
+            if (walkFrameTimer >= 0.125f)
+            {
+                walkFrameTimer -= 0.125f;
+                SetWalkFrame((walkFrameIndex + 1) % walkFrames.Length);
+            }
         }
 
         public void BeginDrag()
@@ -165,6 +183,38 @@ namespace Platformer.Mechanics
                 WorkerRole.Courier => new Color(0.45f, 0.85f, 0.4f, 1f),
                 _ => new Color(0.8f, 0.8f, 0.8f, 1f)
             };
+        }
+
+        void LoadWalkAnimation()
+        {
+            var resourceName = displayName.ToLowerInvariant() switch
+            {
+                "dad" => "father",
+                "mom" => "mother",
+                "mia" => "daughter",
+                "leo" => "son",
+                _ => null
+            };
+            var sheet = string.IsNullOrEmpty(resourceName) ? null : Resources.Load<Texture2D>($"FamilyMovement/{resourceName}");
+            if (sheet == null)
+                return;
+
+            walkFrames = new Sprite[4];
+            for (var i = 0; i < walkFrames.Length; i++)
+            {
+                // The first row in each supplied sheet is the forward-facing walk.
+                walkFrames[i] = Sprite.Create(sheet, new Rect(i * 64, sheet.height - 96, 64, 96),
+                    new Vector2(0.5f, 0.5f), 32f);
+                walkFrames[i].name = $"{resourceName}_forward_walk_{i}";
+            }
+        }
+
+        void SetWalkFrame(int index)
+        {
+            if (walkFrames == null || walkFrames.Length == 0 || spriteRenderer == null)
+                return;
+            walkFrameIndex = index;
+            spriteRenderer.sprite = walkFrames[index];
         }
     }
 }
