@@ -21,6 +21,8 @@
 .vs/
 .vscode/
 .idea/
+.cursor/
+.plastic/
 
 .gradle/
 
@@ -51,7 +53,9 @@ sysinfo.txt
 mono_crash.*
 
 *.apk
+*.apk.meta
 *.aab
+*.aab.meta
 *.unitypackage
 *.unitypackage.meta
 *.app
