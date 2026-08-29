@@ -9,9 +9,6 @@ namespace Platformer.UI
     public class RoundHUDController : MonoBehaviour
     {
         public TMP_Text timerText;
-        public TMP_Text hopeText;
-        public TMP_Text stressText;
-        public TMP_Text rapportText;
         public TMP_Text statusText;
 
         SessionModel session;
@@ -57,13 +54,6 @@ namespace Platformer.UI
                 timerText.text = $"Day {session.currentDay}/{SessionModel.TotalDays}  {minutes:00}:{remainder:00}";
             }
 
-            if (hopeText != null)
-                hopeText.text = $"Hope {session.hope}";
-            if (stressText != null)
-                stressText.text = $"Stress {session.stress}";
-            if (rapportText != null)
-                rapportText.text = $"Rapport {session.rapport}";
-
             if (statusText != null)
             {
                 statusText.text = session.round.phase switch
@@ -96,9 +86,6 @@ namespace Platformer.UI
             rect.anchoredPosition = new Vector2(0f, -72f);
 
             timerText = CreateLabel(hudRoot.transform, new Vector2(0.05f, 0.5f), TextAlignmentOptions.Left);
-            hopeText = CreateLabel(hudRoot.transform, new Vector2(0.35f, 0.5f), TextAlignmentOptions.Left);
-            stressText = CreateLabel(hudRoot.transform, new Vector2(0.52f, 0.5f), TextAlignmentOptions.Left);
-            rapportText = CreateLabel(hudRoot.transform, new Vector2(0.69f, 0.5f), TextAlignmentOptions.Left);
             statusText = CreateLabel(hudRoot.transform, new Vector2(0.82f, 0.5f), TextAlignmentOptions.Left);
         }
 

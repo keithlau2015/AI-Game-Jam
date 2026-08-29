@@ -8,9 +8,6 @@ namespace Platformer.UI
 {
     public class SessionHUDController : MonoBehaviour
     {
-        public TMP_Text hopeText;
-        public TMP_Text stressText;
-        public TMP_Text rapportText;
         public TMP_Text statusText;
 
         SessionModel model;
@@ -49,13 +46,6 @@ namespace Platformer.UI
             if (model == null)
                 return;
 
-            if (hopeText != null)
-                hopeText.text = $"Hope {model.hope}";
-            if (stressText != null)
-                stressText.text = $"Stress {model.stress}";
-            if (rapportText != null)
-                rapportText.text = $"Rapport {model.rapport}";
-
             if (statusText != null)
             {
                 if (model.eventState.awaitingDecision)
@@ -73,7 +63,7 @@ namespace Platformer.UI
 
         void EnsureHUD()
         {
-            if (hopeText != null)
+            if (statusText != null)
                 return;
 
             var canvas = GetComponentInParent<Canvas>();
@@ -92,9 +82,6 @@ namespace Platformer.UI
             rect.sizeDelta = new Vector2(0f, 48f);
             rect.anchoredPosition = new Vector2(0f, -8f);
 
-            hopeText = CreateStatLabel(hudRoot.transform, new Vector2(0.05f, 0.5f), TextAlignmentOptions.Left);
-            stressText = CreateStatLabel(hudRoot.transform, new Vector2(0.3f, 0.5f), TextAlignmentOptions.Left);
-            rapportText = CreateStatLabel(hudRoot.transform, new Vector2(0.55f, 0.5f), TextAlignmentOptions.Left);
             statusText = CreateStatLabel(hudRoot.transform, new Vector2(0.82f, 0.5f), TextAlignmentOptions.Left);
         }
 

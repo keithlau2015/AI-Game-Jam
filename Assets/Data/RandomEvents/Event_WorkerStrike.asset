@@ -19,7 +19,7 @@ MonoBehaviour:
   canRepeat: 1
   options:
   - label: Offer a break
-    outcomeText: Morale rises. You lose a little time.
+    outcomeText: Stress eases. You lose a little time.
     effectType: 15
     value: 15
     duration: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
     secondaryEffectType: 15
     secondaryValue: -12
   - label: Call it team building
-    outcomeText: Reputation improves. Nobody knows why.
+    outcomeText: Rapport improves. Nobody knows why.
     effectType: 16
     value: 4
     duration: 0

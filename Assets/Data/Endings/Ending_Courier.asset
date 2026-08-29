@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Ending_Courier
   m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.EndingDefinition
   title: Busy Happy Home
-  description: There was always someone moving, helping, and bringing life into every room.
+  description: There was always someone moving, helping, and bringing life into every
+    room.
   image: {fileID: 21300000, guid: b0e58986117053b4192eb09039f2c2ed, type: 3}

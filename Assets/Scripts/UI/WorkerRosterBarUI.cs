@@ -87,7 +87,9 @@ namespace Platformer.UI
                 if (!visible)
                     continue;
 
-                BindCard(ref cards[i], workers[i]);
+                var card = cards[i];
+                BindCard(ref card, workers[i]);
+                cards[i] = card;
             }
         }
 

@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -16,8 +16,12 @@ MonoBehaviour:
   defeatEnding: {fileID: 11400000, guid: 26e77f45576a425581f361ddb4dc4cd3, type: 2}
   timeExpiredEnding: {fileID: 11400000, guid: a00655c851b7467d9e5650334222e6e9, type: 2}
   statLossEnding: {fileID: 11400000, guid: 78626f56901e489f949425a3e019faf4, type: 2}
-  campaignCompleteEnding: {fileID: 11400000, guid: 1aacef33fe434d53b2e702d0415a0e52, type: 2}
-  builderFocusedEnding: {fileID: 11400000, guid: 6a4301a8a65042da88f68dd9780df16e, type: 2}
-  analystFocusedEnding: {fileID: 11400000, guid: faaed3c2a9c14bbb9bdc79085ee8f79c, type: 2}
-  courierFocusedEnding: {fileID: 11400000, guid: 43c0b3a5affe4a64a723a3d517f37e05, type: 2}
+  campaignCompleteEnding: {fileID: 11400000, guid: 1aacef33fe434d53b2e702d0415a0e52,
+    type: 2}
+  builderFocusedEnding: {fileID: 11400000, guid: 6a4301a8a65042da88f68dd9780df16e,
+    type: 2}
+  analystFocusedEnding: {fileID: 11400000, guid: faaed3c2a9c14bbb9bdc79085ee8f79c,
+    type: 2}
+  courierFocusedEnding: {fileID: 11400000, guid: 43c0b3a5affe4a64a723a3d517f37e05,
+    type: 2}
   balancedEnding: {fileID: 11400000, guid: 09a23a9268c047deb6f8df3b5c12ccc6, type: 2}

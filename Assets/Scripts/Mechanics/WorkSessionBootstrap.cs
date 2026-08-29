@@ -90,6 +90,12 @@ namespace Platformer.Mechanics
                 sessionHudObject.AddComponent<SessionHUDController>();
             }
 
+            if (FindFirstObjectByType<GlobalStatBarsController>() == null)
+            {
+                var statBarsObject = new GameObject("GlobalStatBars");
+                statBarsObject.AddComponent<GlobalStatBarsController>();
+            }
+
             if (FindFirstObjectByType<WorkerPlacementConfirmUI>() == null)
             {
                 var confirmObject = new GameObject("WorkerPlacementConfirmUI");

@@ -25,7 +25,7 @@ MonoBehaviour:
     secondaryEffectType: 0
     secondaryValue: 0
   - label: Show transparency
-    outcomeText: Karma increases.
+    outcomeText: Hope increases.
     effectType: 14
     value: 5
     duration: 0

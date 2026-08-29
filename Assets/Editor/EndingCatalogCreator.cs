@@ -25,7 +25,7 @@ namespace Platformer.Editor
             catalog.builderFocusedEnding = CreateEnding(Root, "Ending_Builder", "Warm Kitchen Evenings", "Shared meals and small repairs made the home feel steady again.");
             catalog.analystFocusedEnding = CreateEnding(Root, "Ending_Analyst", "Quiet Understanding", "Books, plans, and patient talks helped everyone feel heard.");
             catalog.courierFocusedEnding = CreateEnding(Root, "Ending_Courier", "Busy Happy Home", "There was always someone moving, helping, and bringing life into every room.");
-            catalog balancedEnding = CreateEnding(Root, "Ending_Balanced", "Balanced Family Life", "Everyone contributed in their own way, and the day ended in gentle harmony.");
+            catalog.balancedEnding = CreateEnding(Root, "Ending_Balanced", "Balanced Family Life", "Everyone contributed in their own way, and the day ended in gentle harmony.");
 
             AssignImage(catalog.defeatEnding, background);
             AssignImage(catalog.timeExpiredEnding, background);

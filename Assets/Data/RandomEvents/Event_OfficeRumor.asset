@@ -19,7 +19,7 @@ MonoBehaviour:
   canRepeat: 1
   options:
   - label: Deny it
-    outcomeText: Morale falls slightly.
+    outcomeText: Stress falls slightly.
     effectType: 15
     value: -8
     duration: 0

@@ -27,15 +27,7 @@ namespace Platformer.Gameplay
             SessionEndChecker.CheckAndSchedule(session);
 
             session.eventState.pendingEvent = null;
-            session.eventState.awaitingDecision = false;
             session.eventsResolved += 1;
-
-            if (Time.timeScale == 0f)
-                Time.timeScale = 1f;
-
-            session.round.dragEnabled = true;
-            if (RoundController.Instance != null)
-                RoundController.Instance.SetPausedForEvent(false);
         }
 
         internal override void Cleanup()
