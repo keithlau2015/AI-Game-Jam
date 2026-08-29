@@ -1,28 +1,46 @@
 using Platformer.Core;
 using Platformer.Model;
+using Platformer.UI;
 using UnityEngine;
 
 namespace Platformer.Mechanics
 {
-    /// <summary>
-    /// This class exposes the the game model in the inspector, and ticks the
-    /// simulation.
-    /// </summary> 
     public class GameController : MonoBehaviour
     {
         public static GameController Instance { get; private set; }
 
-        //This model field is public and can be therefore be modified in the 
-        //inspector.
-        //The reference actually comes from the InstanceRegister, and is shared
-        //through the simulation and events. Unity will deserialize over this
-        //shared reference when the scene loads, allowing the model to be
-        //conveniently configured inside the inspector.
-        public PlatformerModel model = Simulation.GetModel<PlatformerModel>();
+        public SessionModel session = Simulation.GetModel<SessionModel>();
 
         void OnEnable()
         {
             Instance = this;
+            Simulation.SetModel(session);
+            EnsureWorkerSession();
+            EnsureRandomEventSystems();
+        }
+
+        void EnsureWorkerSession()
+        {
+            if (GetComponent<WorkSessionBootstrap>() == null)
+                gameObject.AddComponent<WorkSessionBootstrap>();
+        }
+
+        void EnsureRandomEventSystems()
+        {
+            var controller = GetComponent<RandomEventController>();
+            if (controller == null)
+                controller = gameObject.AddComponent<RandomEventController>();
+
+            if (session.eventPool != null)
+                controller.eventPool = session.eventPool;
+            else if (controller.eventPool != null)
+                session.eventPool = controller.eventPool;
+
+            if (FindFirstObjectByType<RandomEventUIController>() == null)
+            {
+                var uiObject = new GameObject("RandomEventUI");
+                uiObject.AddComponent<RandomEventUIController>();
+            }
         }
 
         void OnDisable()

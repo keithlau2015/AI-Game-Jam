@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Platformer
 {
     [CustomEditor(typeof(PatrolPath))]
-    public class PatrolPathGizmo : Editor
+    public class PatrolPathGizmo : UnityEditor.Editor
     {
         public void OnSceneGUI()
         {

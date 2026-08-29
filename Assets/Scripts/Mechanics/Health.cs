@@ -27,7 +27,20 @@ namespace Platformer.Mechanics
         /// </summary>
         public void Increment()
         {
-            currentHP = Mathf.Clamp(currentHP + 1, 0, maxHP);
+            ApplyDelta(1);
+        }
+
+        public void ApplyDelta(int delta)
+        {
+            if (delta == 0)
+                return;
+
+            currentHP = Mathf.Clamp(currentHP + delta, 0, maxHP);
+            if (currentHP == 0)
+            {
+                var ev = Schedule<HealthIsZero>();
+                ev.health = this;
+            }
         }
 
         /// <summary>
@@ -36,12 +49,7 @@ namespace Platformer.Mechanics
         /// </summary>
         public void Decrement()
         {
-            currentHP = Mathf.Clamp(currentHP - 1, 0, maxHP);
-            if (currentHP == 0)
-            {
-                var ev = Schedule<HealthIsZero>();
-                ev.health = this;
-            }
+            ApplyDelta(-1);
         }
 
         /// <summary>
