@@ -3371,7 +3371,7 @@ PrefabInstance:
     - target: {fileID: 6183938022098829881, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_fontSize
-      value: 19.7
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6183938022098829881, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -3536,7 +3536,7 @@ PrefabInstance:
     - target: {fileID: 7912345897870316049, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_fontSize
-      value: 19.1
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 7912345897870316049, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -3606,7 +3606,7 @@ PrefabInstance:
     - target: {fileID: 7947050594929349001, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_fontSize
-      value: 22.45
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 7947050594929349001, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -104448,6 +104448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5388803872435667744, guid: 29dbdedf464f6364488ce90af222a99b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5846802575897877701, guid: 29dbdedf464f6364488ce90af222a99b,
         type: 3}
       propertyPath: m_fontColor32.rgba
@@ -104581,12 +104586,6 @@ PrefabInstance:
 --- !u!224 &1186893198 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6080954334118244643, guid: 29dbdedf464f6364488ce90af222a99b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1186893197}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1186893199 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5388803872435667744, guid: 29dbdedf464f6364488ce90af222a99b,
     type: 3}
   m_PrefabInstance: {fileID: 1186893197}
   m_PrefabAsset: {fileID: 0}
@@ -251104,8 +251103,9 @@ MonoBehaviour:
   - SpawnPoint
   timeLimit: 90
   targetOutput: 50
+  autoStartOnLoad: 1
   mainCanvas: {fileID: 2110646554}
-  startPanel: {fileID: 1186893199}
+  startPanel: {fileID: 0}
   winPanelPrefab: {fileID: 6124146720885125115, guid: c463cf34c335eff429e50db10c6f6f06,
     type: 3}
   losePanelPrefab: {fileID: 3556345582348313503, guid: 2ad739880e709bd43b1063058076390e,
