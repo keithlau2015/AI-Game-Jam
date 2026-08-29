@@ -105,6 +105,7 @@ namespace Platformer.UI
             rect.pivot = new Vector2(alignment == TextAlignmentOptions.Left ? 0f : 0.5f, 0.5f);
             rect.sizeDelta = new Vector2(280f, 36f);
             var text = textObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(text);
             text.fontSize = 22;
             text.alignment = alignment;
             text.color = Color.white;

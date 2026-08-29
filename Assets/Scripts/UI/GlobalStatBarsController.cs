@@ -178,6 +178,7 @@ namespace Platformer.UI
             element.minWidth = width;
             element.preferredWidth = width;
             var label = textObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(label);
             label.text = text;
             label.fontSize = 18;
             label.alignment = alignment;

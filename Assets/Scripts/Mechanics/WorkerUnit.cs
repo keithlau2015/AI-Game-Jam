@@ -217,10 +217,23 @@ namespace Platformer.Mechanics
             };
         }
 
+        public Sprite GetPortraitSprite()
+        {
+            return FamilyMemberSpriteRules.GetSprite(familyMember);
+        }
+
         void ApplyVisual()
         {
             if (spriteRenderer == null)
                 spriteRenderer = GetComponent<SpriteRenderer>();
+
+            var portrait = GetPortraitSprite();
+            if (portrait != null)
+            {
+                spriteRenderer.sprite = portrait;
+                spriteRenderer.color = Color.white;
+                return;
+            }
 
             spriteRenderer.color = role switch
             {

@@ -73,14 +73,19 @@ namespace Platformer.UI
             return RectTransformUtility.RectangleContainsScreenPoint(rect, screenPoint, eventCamera);
         }
 
-        public void Bind(string displayName, Color portraitColor, int happiness, bool highlighted)
+        public void Bind(string displayName, Sprite portraitSprite, int happiness, bool highlighted)
         {
             EnsureBindings();
 
             if (portraitImage != null)
             {
                 portraitImage.gameObject.SetActive(true);
-                portraitImage.color = portraitColor;
+                if (portraitSprite != null)
+                {
+                    portraitImage.sprite = portraitSprite;
+                    portraitImage.color = Color.white;
+                    portraitImage.preserveAspect = true;
+                }
             }
 
             if (nameText == null)
@@ -110,6 +115,7 @@ namespace Platformer.UI
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             var text = labelObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(text);
             text.fontSize = 24;
             text.alignment = TextAlignmentOptions.Center;
             text.color = Color.white;

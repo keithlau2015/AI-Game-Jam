@@ -91,17 +91,7 @@ namespace Platformer.UI
 
         void ResolveFont()
         {
-            if (font != null)
-                return;
-
-            foreach (var fallbackFont in TMP_Settings.fallbackFontAssets)
-            {
-                if (fallbackFont != null && fallbackFont.name == "jf-openhuninn-2.1 SDF")
-                {
-                    font = fallbackFont;
-                    return;
-                }
-            }
+            font = UIFontProvider.Primary;
         }
 
         void HideAll()
@@ -215,8 +205,7 @@ namespace Platformer.UI
             confirmLabelRect.offsetMin = Vector2.zero;
             confirmLabelRect.offsetMax = Vector2.zero;
             var confirmLabel = confirmLabelObject.GetComponent<TextMeshProUGUI>();
-            if (font != null)
-                confirmLabel.font = font;
+            UIFontProvider.Apply(confirmLabel);
             confirmLabel.text = "確認";
             confirmLabel.fontSize = 26;
             confirmLabel.alignment = TextAlignmentOptions.Center;
@@ -281,8 +270,7 @@ namespace Platformer.UI
             var textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
             textObject.transform.SetParent(parent, false);
             var text = textObject.GetComponent<TextMeshProUGUI>();
-            if (font != null)
-                text.font = font;
+            UIFontProvider.Apply(text);
             text.fontSize = fontSize;
             text.fontStyle = style;
             text.alignment = alignment;
@@ -312,8 +300,7 @@ namespace Platformer.UI
             var labelObject = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
             labelObject.transform.SetParent(buttonObject.transform, false);
             var labelText = labelObject.GetComponent<TextMeshProUGUI>();
-            if (font != null)
-                labelText.font = font;
+            UIFontProvider.Apply(labelText);
             labelText.text = label;
             labelText.fontSize = 24;
             labelText.alignment = TextAlignmentOptions.Center;
@@ -324,8 +311,7 @@ namespace Platformer.UI
                 var hintObject = new GameObject("AffectedStats", typeof(RectTransform), typeof(TextMeshProUGUI));
                 hintObject.transform.SetParent(buttonObject.transform, false);
                 var hintText = hintObject.GetComponent<TextMeshProUGUI>();
-                if (font != null)
-                    hintText.font = font;
+                UIFontProvider.Apply(hintText);
                 hintText.text = affectedStatsText;
                 hintText.fontSize = 18;
                 hintText.alignment = TextAlignmentOptions.Center;

@@ -143,6 +143,7 @@ namespace Platformer.UI
             var textObject = new GameObject("Message", typeof(RectTransform), typeof(TextMeshProUGUI));
             textObject.transform.SetParent(parent, false);
             var text = textObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(text);
             text.fontSize = fontSize;
             text.fontStyle = style;
             text.alignment = TextAlignmentOptions.Center;
@@ -168,6 +169,7 @@ namespace Platformer.UI
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             var text = textObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(text);
             text.text = label;
             text.fontSize = 22;
             text.alignment = TextAlignmentOptions.Center;

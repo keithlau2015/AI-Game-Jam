@@ -427,6 +427,8 @@ namespace Platformer.Mechanics
                 mainCanvas.gameObject.SetActive(true);
 
             EnsureGameplayHUD();
+            if (mainCanvas != null)
+                UIFontProvider.ApplyToHierarchy(mainCanvas.transform);
             HideMenuPanels();
             EnsureStartPanel();
         }
@@ -454,6 +456,7 @@ namespace Platformer.Mechanics
             hudInstance.name = "GameplayHUD";
             StripNestedCanvas(hudInstance);
             StretchToParent(hudInstance);
+            UIFontProvider.ApplyToHierarchy(hudInstance.transform);
         }
 
         static void StripNestedCanvas(GameObject hudInstance)
@@ -551,6 +554,7 @@ namespace Platformer.Mechanics
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             var label = textObject.GetComponent<TextMeshProUGUI>();
+            UIFontProvider.Apply(label);
             label.text = text;
             label.fontSize = fontSize;
             label.alignment = TextAlignmentOptions.Center;

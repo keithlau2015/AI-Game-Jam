@@ -112,10 +112,8 @@ namespace Platformer.UI
                 var worker = workers[i];
                 cards[i].BindWorker(worker);
                 var highlighted = worker.state == WorkerState.Dragging || worker.state == WorkerState.Working;
-                var portraitColor = worker.GetComponent<SpriteRenderer>() != null
-                    ? worker.GetComponent<SpriteRenderer>().color
-                    : Color.white;
-                cards[i].Bind(worker.displayName, portraitColor, worker.attributes.happiness, highlighted);
+                var portraitSprite = worker.GetPortraitSprite();
+                cards[i].Bind(worker.displayName, portraitSprite, worker.attributes.happiness, highlighted);
             }
         }
 

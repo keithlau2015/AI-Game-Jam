@@ -30,6 +30,7 @@ namespace Platformer.UI
 
             Instance = this;
             EnsureBindings();
+            UIFontProvider.ApplyToHierarchy(transform);
         }
 
         void OnDestroy()
