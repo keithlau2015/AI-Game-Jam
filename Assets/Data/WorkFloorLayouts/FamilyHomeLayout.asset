@@ -20,11 +20,32 @@ MonoBehaviour:
   showStationOverlay: 1
   stationOverlayAlpha: 0.35
   stations:
+  - stationId: Family Lounge
+    displayLabel: Family Lounge
+    normalizedPosition: {x: 0.58, y: 0.52}
+    mode: 0
+    requiredRole: 0
+    acceptAnyMember: 1
+    allowedMemberColors: 7
+    capacity: 4
+    outputPerWorker: 2.5
+    spawnWindowStart: 0
+    spawnWindowEnd: 0
+    taskDuration: 0
+    taskProgressPerWorker: 0
+    correctWorkerSpeedMultiplier: 0
+    activeTaskRoundTimeBonus: 0.35
+    taskOutputReward: 0
+    colliderSize: {x: 2.8, y: 2.2}
+    visualScale: {x: 2.8, y: 1.8}
+    tint: {r: 0.45, g: 0.4, b: 0.55, a: 1}
   - stationId: Study Desk
     displayLabel: Study Desk
     normalizedPosition: {x: 0.74, y: 0.66}
     mode: 0
     requiredRole: 2
+    acceptAnyMember: 0
+    allowedMemberColors: 2
     capacity: 2
     outputPerWorker: 3
     spawnWindowStart: 0
@@ -42,6 +63,8 @@ MonoBehaviour:
     normalizedPosition: {x: 0.22, y: 0.4}
     mode: 0
     requiredRole: 1
+    acceptAnyMember: 0
+    allowedMemberColors: 1
     capacity: 2
     outputPerWorker: 3
     spawnWindowStart: 0
@@ -59,6 +82,8 @@ MonoBehaviour:
     normalizedPosition: {x: 0.48, y: 0.34}
     mode: 1
     requiredRole: 2
+    acceptAnyMember: 0
+    allowedMemberColors: 2
     capacity: 1
     outputPerWorker: 0
     spawnWindowStart: 12
@@ -76,6 +101,8 @@ MonoBehaviour:
     normalizedPosition: {x: 0.14, y: 0.66}
     mode: 1
     requiredRole: 3
+    acceptAnyMember: 0
+    allowedMemberColors: 4
     capacity: 1
     outputPerWorker: 0
     spawnWindowStart: 8
@@ -93,6 +120,8 @@ MonoBehaviour:
     normalizedPosition: {x: 0.28, y: 0.28}
     mode: 1
     requiredRole: 1
+    acceptAnyMember: 0
+    allowedMemberColors: 1
     capacity: 1
     outputPerWorker: 0
     spawnWindowStart: 18
@@ -105,12 +134,14 @@ MonoBehaviour:
     colliderSize: {x: 2.2, y: 1.8}
     visualScale: {x: 2.2, y: 1.5}
     tint: {r: 0.75, g: 0.45, b: 0.2, a: 1}
-  - stationId: Water Garden
-    displayLabel: Water Garden
+  - stationId: Movie Night
+    displayLabel: Movie Night
     normalizedPosition: {x: 0.84, y: 0.36}
     mode: 1
-    requiredRole: 3
-    capacity: 1
+    requiredRole: 0
+    acceptAnyMember: 1
+    allowedMemberColors: 7
+    capacity: 4
     outputPerWorker: 0
     spawnWindowStart: 5
     spawnWindowEnd: 45
@@ -119,9 +150,9 @@ MonoBehaviour:
     correctWorkerSpeedMultiplier: 2
     activeTaskRoundTimeBonus: 0.35
     taskOutputReward: 10
-    colliderSize: {x: 2.2, y: 1.8}
-    visualScale: {x: 2.2, y: 1.5}
-    tint: {r: 0.2, g: 0.5, b: 0.25, a: 1}
+    colliderSize: {x: 2.8, y: 2.2}
+    visualScale: {x: 2.8, y: 1.8}
+    tint: {r: 0.25, g: 0.2, b: 0.45, a: 1}
   rosterSlots:
   - displayName: Dad
     normalizedPosition: {x: 0.18, y: 0.06}

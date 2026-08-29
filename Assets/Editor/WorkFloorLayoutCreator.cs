@@ -44,12 +44,13 @@ namespace Platformer.Editor
             layout.stationOverlayAlpha = 0.35f;
             layout.stations = new[]
             {
-                Station("Study Desk", "Study Desk", new Vector2(0.74f, 0.66f), WorkStationMode.PermanentProduction, WorkerRole.Analyst, new Color(0.2f, 0.35f, 0.6f, 1f), 2, 3f, 0f, 0f, 0f, 0f, 0f, 0),
-                Station("Kitchen Stove", "Kitchen Stove", new Vector2(0.22f, 0.4f), WorkStationMode.PermanentProduction, WorkerRole.Builder, new Color(0.55f, 0.3f, 0.2f, 1f), 2, 3f, 0f, 0f, 0f, 0f, 0f, 0),
-                Station("Read With Child", "Read With Child", new Vector2(0.48f, 0.34f), WorkStationMode.TimedTask, WorkerRole.Analyst, new Color(0.85f, 0.35f, 0.55f, 1f), 1, 0f, 12f, 55f, 14f, 1.2f, 2f, 10),
-                Station("Homework Desk", "Homework Desk", new Vector2(0.14f, 0.66f), WorkStationMode.TimedTask, WorkerRole.Courier, new Color(0.35f, 0.55f, 0.75f, 1f), 1, 0f, 8f, 50f, 12f, 1.2f, 2f, 8),
-                Station("Prepare Dinner", "Prepare Dinner", new Vector2(0.28f, 0.28f), WorkStationMode.TimedTask, WorkerRole.Builder, new Color(0.75f, 0.45f, 0.2f, 1f), 1, 0f, 18f, 65f, 16f, 1.2f, 2f, 12),
-                Station("Water Garden", "Water Garden", new Vector2(0.84f, 0.36f), WorkStationMode.TimedTask, WorkerRole.Courier, new Color(0.2f, 0.5f, 0.25f, 1f), 1, 0f, 5f, 45f, 10f, 1.2f, 2f, 10)
+                AnyPermanent("Family Lounge", "Family Lounge", new Vector2(0.58f, 0.52f), new Color(0.45f, 0.4f, 0.55f, 1f), 4, 2.5f),
+                ColorPermanent("Study Desk", "Study Desk", new Vector2(0.74f, 0.66f), WorkerColor.Blue, new Color(0.2f, 0.35f, 0.6f, 1f), 2, 3f),
+                ColorPermanent("Kitchen Stove", "Kitchen Stove", new Vector2(0.22f, 0.4f), WorkerColor.Orange, new Color(0.55f, 0.3f, 0.2f, 1f), 2, 3f),
+                ColorTimed("Read With Child", "Read With Child", new Vector2(0.48f, 0.34f), WorkerColor.Blue, new Color(0.85f, 0.35f, 0.55f, 1f), 1, 12f, 55f, 14f, 10),
+                ColorTimed("Homework Desk", "Homework Desk", new Vector2(0.14f, 0.66f), WorkerColor.Green, new Color(0.35f, 0.55f, 0.75f, 1f), 1, 8f, 50f, 12f, 8),
+                ColorTimed("Prepare Dinner", "Prepare Dinner", new Vector2(0.28f, 0.28f), WorkerColor.Orange, new Color(0.75f, 0.45f, 0.2f, 1f), 1, 18f, 65f, 16f, 12),
+                AnyTimed("Movie Night", "Movie Night", new Vector2(0.84f, 0.36f), new Color(0.25f, 0.2f, 0.45f, 1f), 4, 5f, 45f, 10f, 10)
             };
             layout.rosterSlots = new[]
             {
@@ -71,40 +72,100 @@ namespace Platformer.Editor
             EditorGUIUtility.PingObject(layout);
         }
 
-        static WorkStationDefinition Station(
-            string stationId,
-            string displayLabel,
-            Vector2 normalizedPosition,
-            WorkStationMode mode,
-            WorkerRole role,
-            Color tint,
-            int capacity,
-            float outputPerWorker,
-            float spawnStart,
-            float spawnEnd,
-            float duration,
-            float progressPerWorker,
-            float speedMultiplier,
-            int reward)
+        static WorkStationDefinition AnyPermanent(string stationId, string displayLabel, Vector2 normalizedPosition, Color tint, int capacity, float outputPerWorker)
         {
             return new WorkStationDefinition
             {
                 stationId = stationId,
                 displayLabel = displayLabel,
                 normalizedPosition = normalizedPosition,
-                mode = mode,
-                requiredRole = role,
-                tint = tint,
+                mode = WorkStationMode.PermanentProduction,
+                acceptAnyMember = true,
+                allowedMemberColors = WorkerColor.All,
                 capacity = capacity,
                 outputPerWorker = outputPerWorker,
+                tint = tint,
+                colliderSize = new Vector2(2.8f, 2.2f),
+                visualScale = new Vector2(2.8f, 1.8f)
+            };
+        }
+
+        static WorkStationDefinition ColorPermanent(string stationId, string displayLabel, Vector2 normalizedPosition, WorkerColor allowedColor, Color tint, int capacity, float outputPerWorker)
+        {
+            return new WorkStationDefinition
+            {
+                stationId = stationId,
+                displayLabel = displayLabel,
+                normalizedPosition = normalizedPosition,
+                mode = WorkStationMode.PermanentProduction,
+                requiredRole = RoleFromColor(allowedColor),
+                acceptAnyMember = false,
+                allowedMemberColors = allowedColor,
+                capacity = capacity,
+                outputPerWorker = outputPerWorker,
+                tint = tint,
+                colliderSize = new Vector2(2.2f, 1.8f),
+                visualScale = new Vector2(2.2f, 1.5f)
+            };
+        }
+
+        static WorkStationDefinition ColorTimed(string stationId, string displayLabel, Vector2 normalizedPosition, WorkerColor allowedColor, Color tint, int capacity, float spawnStart, float spawnEnd, float duration, int reward)
+        {
+            return new WorkStationDefinition
+            {
+                stationId = stationId,
+                displayLabel = displayLabel,
+                normalizedPosition = normalizedPosition,
+                mode = WorkStationMode.TimedTask,
+                requiredRole = RoleFromColor(allowedColor),
+                acceptAnyMember = false,
+                allowedMemberColors = allowedColor,
+                capacity = capacity,
                 spawnWindowStart = spawnStart,
                 spawnWindowEnd = spawnEnd,
                 taskDuration = duration,
-                taskProgressPerWorker = progressPerWorker,
-                correctWorkerSpeedMultiplier = speedMultiplier,
+                taskProgressPerWorker = 1.2f,
+                correctWorkerSpeedMultiplier = 2f,
+                activeTaskRoundTimeBonus = 0.35f,
                 taskOutputReward = reward,
+                tint = tint,
                 colliderSize = new Vector2(2.2f, 1.8f),
                 visualScale = new Vector2(2.2f, 1.5f)
+            };
+        }
+
+        static WorkStationDefinition AnyTimed(string stationId, string displayLabel, Vector2 normalizedPosition, Color tint, int capacity, float spawnStart, float spawnEnd, float duration, int reward)
+        {
+            return new WorkStationDefinition
+            {
+                stationId = stationId,
+                displayLabel = displayLabel,
+                normalizedPosition = normalizedPosition,
+                mode = WorkStationMode.TimedTask,
+                acceptAnyMember = true,
+                allowedMemberColors = WorkerColor.All,
+                capacity = capacity,
+                spawnWindowStart = spawnStart,
+                spawnWindowEnd = spawnEnd,
+                taskDuration = duration,
+                taskProgressPerWorker = 1.2f,
+                correctWorkerSpeedMultiplier = 2f,
+                activeTaskRoundTimeBonus = 0.35f,
+                taskOutputReward = reward,
+                tint = tint,
+                colliderSize = new Vector2(2.8f, 2.2f),
+                visualScale = new Vector2(2.8f, 1.8f)
+            };
+        }
+
+        static WorkerRole RoleFromColor(WorkerColor color)
+        {
+            return color switch
+            {
+                WorkerColor.Orange => WorkerRole.Builder,
+                WorkerColor.Blue => WorkerRole.Analyst,
+                WorkerColor.Green => WorkerRole.Courier,
+                _ => WorkerRole.Any
             };
         }
 

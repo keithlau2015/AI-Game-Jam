@@ -250911,7 +250911,7 @@ MonoBehaviour:
       awaitingDecision: 0
       karma: 0
     round:
-      timeLimit: 90
+      timeLimit: 120
       timeRemaining: 0
       targetOutput: 50
       currentOutput: 0
@@ -251103,7 +251103,7 @@ MonoBehaviour:
   - SpawnPoint
   floorLayout: {fileID: 11400000, guid: 38accc9674b58d447ba279d0ac33d233, type: 2}
   endingCatalog: {fileID: 11400000, guid: 64dab845fa6f43458c55292dbb71e1e9, type: 2}
-  timeLimit: 90
+  timeLimit: 120
   targetOutput: 50
   autoStartOnLoad: 1
   mainCanvas: {fileID: 2110646554}
