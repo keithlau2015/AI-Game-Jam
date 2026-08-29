@@ -10,6 +10,8 @@ namespace Platformer.Gameplay
 
         public override void Execute()
         {
+            if (GameAudioController.Instance != null)
+                GameAudioController.Instance.PlayWorkerAssigned();
         }
 
         internal override void Cleanup()

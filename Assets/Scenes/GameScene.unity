@@ -3176,7 +3176,7 @@ PrefabInstance:
     - target: {fileID: 2550566963638454825, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_fontSize
-      value: 7
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2550566963638454825, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -3336,7 +3336,7 @@ PrefabInstance:
     - target: {fileID: 4009130065942123197, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_fontSize
-      value: 51.05
+      value: 49.25
       objectReference: {fileID: 0}
     - target: {fileID: 4009130065942123197, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -250885,6 +250885,7 @@ GameObject:
   - component: {fileID: 1754240611}
   - component: {fileID: 1754240613}
   - component: {fileID: 1754240612}
+  - component: {fileID: 1754240614}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -250913,18 +250914,19 @@ MonoBehaviour:
     round:
       timeLimit: 120
       timeRemaining: 0
-      targetOutput: 50
       currentOutput: 0
       globalProductionMultiplier: 1
       phase: 0
       dragEnabled: 1
     statMin: 0
     statMax: 100
-    karma: 50
-    morale: 50
-    reputation: 50
+    hope: 50
+    stress: 65
+    rapport: 50
     eventsResolved: 0
     sessionStarted: 0
+    currentDay: 1
+    lastEndReason: 0
 --- !u!4 &1754240608
 Transform:
   m_ObjectHideFlags: 0
@@ -250968,7 +250970,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 2110646551}
   gamePlayCanvasii: []
-  gameController: {fileID: 1754240607}
+  pausePanelIndex: 1
+  pausePanelName: Settings
 --- !u!82 &1754240611
 AudioSource:
   m_ObjectHideFlags: 0
@@ -251102,9 +251105,7 @@ MonoBehaviour:
   - CM vcam1
   - SpawnPoint
   floorLayout: {fileID: 11400000, guid: 38accc9674b58d447ba279d0ac33d233, type: 2}
-  endingCatalog: {fileID: 11400000, guid: 64dab845fa6f43458c55292dbb71e1e9, type: 2}
   timeLimit: 120
-  targetOutput: 50
   autoStartOnLoad: 1
   mainCanvas: {fileID: 2110646554}
   startPanel: {fileID: 0}
@@ -251112,8 +251113,31 @@ MonoBehaviour:
     type: 3}
   losePanelPrefab: {fileID: 3556345582348313503, guid: 2ad739880e709bd43b1063058076390e,
     type: 3}
+  endingCatalog: {fileID: 11400000, guid: 64dab845fa6f43458c55292dbb71e1e9, type: 2}
   gameplayHudPrefab: {fileID: 1803130171087906740, guid: ea77f36b25679a64f908a520b113f985,
     type: 3}
+  popupTaskPool: {fileID: 0}
+--- !u!114 &1754240614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754240606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8071cb3dd64c2ea41b0b8d0cc96d3972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Mechanics.GameAudioController
+  musicClip: {fileID: 8300000, guid: 5833894e2899f1840ac04193ca462e39, type: 3}
+  workerAssignClip: {fileID: 8300000, guid: 67975c08d56ceb147bad38572d805aa8, type: 3}
+  taskSuccessClip: {fileID: 8300000, guid: bf527d825758e5b4ca7b69f5a02d9a56, type: 3}
+  taskFailClip: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
+  roundWinClip: {fileID: 8300000, guid: bf527d825758e5b4ca7b69f5a02d9a56, type: 3}
+  roundLoseClip: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
+  randomEventClip: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
+  musicVolume: 0.15
+  sfxVolume: 0.8
 --- !u!1 &1757862670
 GameObject:
   m_ObjectHideFlags: 0

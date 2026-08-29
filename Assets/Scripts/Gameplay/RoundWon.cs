@@ -1,4 +1,5 @@
 using Platformer.Core;
+using Platformer.Mechanics;
 using Platformer.Model;
 
 namespace Platformer.Gameplay
@@ -11,6 +12,9 @@ namespace Platformer.Gameplay
         {
             session.round.phase = RoundPhase.Won;
             session.round.dragEnabled = false;
+
+            if (GameAudioController.Instance != null)
+                GameAudioController.Instance.PlayRoundWin();
         }
     }
 }

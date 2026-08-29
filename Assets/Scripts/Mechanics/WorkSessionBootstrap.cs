@@ -112,6 +112,13 @@ namespace Platformer.Mechanics
 
             EnsurePopupTaskSpawner();
             EnsureGameOverUI();
+            EnsureGameAudio();
+        }
+
+        void EnsureGameAudio()
+        {
+            if (GetComponent<GameAudioController>() == null)
+                gameObject.AddComponent<GameAudioController>();
         }
 
         void EnsurePopupTaskSpawner()
@@ -199,9 +206,13 @@ namespace Platformer.Mechanics
             var camera = Camera.main;
             if (camera == null)
             {
-                var cameraObject = new GameObject("Main Camera", typeof(Camera));
+                var cameraObject = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener));
                 cameraObject.tag = "MainCamera";
                 camera = cameraObject.GetComponent<Camera>();
+            }
+            else if (camera.GetComponent<AudioListener>() == null)
+            {
+                camera.gameObject.AddComponent<AudioListener>();
             }
 
             camera.gameObject.SetActive(true);

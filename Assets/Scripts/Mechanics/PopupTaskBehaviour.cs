@@ -105,6 +105,8 @@ namespace Platformer.Mechanics
             resolved = true;
             var participants = GatherParticipants();
             PopupTaskOutcomeApplier.Apply(definition.successEffects, Core.Simulation.GetModel<SessionModel>(), participants);
+            if (GameAudioController.Instance != null)
+                GameAudioController.Instance.PlayTaskSuccess();
             if (station != null)
                 station.ForceCompletePopup();
         }
@@ -116,6 +118,8 @@ namespace Platformer.Mechanics
             resolved = true;
             var participants = GatherParticipants();
             PopupTaskOutcomeApplier.Apply(definition.failureEffects, Core.Simulation.GetModel<SessionModel>(), participants);
+            if (GameAudioController.Instance != null)
+                GameAudioController.Instance.PlayTaskFail();
             HideStation();
         }
 

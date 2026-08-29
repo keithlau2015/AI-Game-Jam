@@ -29,6 +29,9 @@ namespace Platformer.Gameplay
                 RoundController.Instance.SetPausedForEvent(true);
 
             Time.timeScale = 0f;
+
+            if (GameAudioController.Instance != null)
+                GameAudioController.Instance.PlayRandomEvent();
         }
 
         internal override void Cleanup()
