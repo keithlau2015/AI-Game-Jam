@@ -60,16 +60,12 @@ namespace Platformer.Mechanics
             if (session.round.timeRemaining <= 0f)
             {
                 session.round.timeRemaining = 0f;
-                if (session.round.currentOutput >= session.round.targetOutput)
-                    Schedule<RoundWon>();
-                else
-                    Schedule<RoundLost>();
+                session.lastEndReason = RoundEndReason.DaySurvived;
+                Schedule<RoundWon>();
                 return;
             }
 
             TickProduction(deltaTime);
-            if (session.round.currentOutput >= session.round.targetOutput)
-                Schedule<RoundWon>();
         }
 
         void TickProduction(float deltaTime)

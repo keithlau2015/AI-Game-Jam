@@ -8,6 +8,7 @@ namespace Platformer.Model
         public int builderSkill;
         public int analystSkill;
         public int courierSkill;
+        public int happiness;
 
         public static WorkerAttributes CreateRandom(WorkerRole primaryRole)
         {
@@ -16,6 +17,7 @@ namespace Platformer.Model
                 builderSkill = RollSkill(primaryRole, WorkerRole.Builder),
                 analystSkill = RollSkill(primaryRole, WorkerRole.Analyst),
                 courierSkill = RollSkill(primaryRole, WorkerRole.Courier),
+                happiness = Random.Range(55, 92),
             };
         }
 

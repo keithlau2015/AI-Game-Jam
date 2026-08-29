@@ -1,7 +1,6 @@
 using Platformer.Core;
 using Platformer.Gameplay;
 using Platformer.Model;
-using TMPro;
 using UnityEngine;
 using static Platformer.Core.Simulation;
 
@@ -12,23 +11,28 @@ namespace Platformer.Mechanics
         public WorkerRole role = WorkerRole.Builder;
         public WorkerState state = WorkerState.InRoster;
         public WorkerAttributes attributes;
+        public string displayName = "Worker";
 
         Vector3 homePosition;
         WorkStation currentStation;
         SpriteRenderer spriteRenderer;
         Collider2D pickCollider;
-        TextMeshPro rosterLabel;
 
         public WorkStation CurrentStation => currentStation;
 
-        public void Initialize(WorkerRole workerRole, Vector3 rosterHome)
+        public void Initialize(WorkerRole workerRole, Vector3 rosterHome, string workerName = null)
         {
             role = workerRole;
+            displayName = string.IsNullOrEmpty(workerName) ? workerRole.ToString() : workerName;
             homePosition = rosterHome;
             attributes = WorkerAttributes.CreateRandom(workerRole);
             transform.position = rosterHome;
             ApplyVisual();
-            UpdateRosterLabel();
+        }
+
+        public string GetAttributeSummary()
+        {
+            return $"Build {attributes.builderSkill}  Study {attributes.analystSkill}  Active {attributes.courierSkill}  Happiness {attributes.happiness}";
         }
 
         public WorkerRole GetJobRoleForStation(WorkStation station)
@@ -41,7 +45,7 @@ namespace Platformer.Mechanics
 
         public float GetEfficiencyForStation(WorkStation station)
         {
-            return attributes.GetEfficiency(GetJobRoleForStation(station));
+            return 1f;
         }
 
         public int GetSkillForStation(WorkStation station)
@@ -130,22 +134,6 @@ namespace Platformer.Mechanics
                 WorkerRole.Courier => new Color(0.45f, 0.85f, 0.4f, 1f),
                 _ => new Color(0.8f, 0.8f, 0.8f, 1f)
             };
-        }
-
-        void UpdateRosterLabel()
-        {
-            if (rosterLabel == null)
-            {
-                var labelObject = new GameObject("SkillLabel", typeof(TextMeshPro));
-                labelObject.transform.SetParent(transform, false);
-                labelObject.transform.localPosition = new Vector3(0f, -0.75f, 0f);
-                rosterLabel = labelObject.GetComponent<TextMeshPro>();
-                rosterLabel.fontSize = 1.6f;
-                rosterLabel.alignment = TextAlignmentOptions.Center;
-                rosterLabel.color = Color.white;
-            }
-
-            rosterLabel.text = $"B{attributes.builderSkill} A{attributes.analystSkill} C{attributes.courierSkill}";
         }
     }
 }

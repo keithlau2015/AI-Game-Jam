@@ -22,16 +22,16 @@ namespace Platformer.Model
                 case RandomEventEffectType.None:
                 case RandomEventEffectType.NarrativeOnly:
                     break;
-                case RandomEventEffectType.AddKarma:
-                    session.karma += Mathf.RoundToInt(value);
+                case RandomEventEffectType.AddHope:
+                    session.hope += Mathf.RoundToInt(value);
                     session.ClampStats();
                     break;
-                case RandomEventEffectType.ModifyMorale:
-                    session.morale += Mathf.RoundToInt(value);
+                case RandomEventEffectType.ModifyStress:
+                    session.stress += Mathf.RoundToInt(value);
                     session.ClampStats();
                     break;
-                case RandomEventEffectType.ModifyReputation:
-                    session.reputation += Mathf.RoundToInt(value);
+                case RandomEventEffectType.ModifyRapport:
+                    session.rapport += Mathf.RoundToInt(value);
                     session.ClampStats();
                     break;
                 case RandomEventEffectType.AddTime:

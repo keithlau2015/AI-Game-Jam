@@ -10,27 +10,25 @@ namespace Platformer.Model
         public RoundState round = new RoundState();
         public int statMin;
         public int statMax = 100;
-        public int karma = 50;
-        public int morale = 50;
-        public int reputation = 50;
+        public int hope = 50;
+        public int stress = 50;
+        public int rapport = 50;
         public int eventsResolved;
         public bool sessionStarted;
+        public const int TotalDays = 4;
+        public int currentDay = 1;
+        public RoundEndReason lastEndReason = RoundEndReason.None;
 
         public void ClampStats()
         {
-            karma = Mathf.Clamp(karma, statMin, statMax);
-            morale = Mathf.Clamp(morale, statMin, statMax);
-            reputation = Mathf.Clamp(reputation, statMin, statMax);
-        }
-
-        public bool HasStatWin()
-        {
-            return karma >= statMax || morale >= statMax || reputation >= statMax;
+            hope = Mathf.Clamp(hope, statMin, statMax);
+            stress = Mathf.Clamp(stress, statMin, statMax);
+            rapport = Mathf.Clamp(rapport, statMin, statMax);
         }
 
         public bool HasStatLoss()
         {
-            return karma <= statMin || morale <= statMin || reputation <= statMin;
+            return hope <= statMin || stress <= statMin || rapport <= statMin;
         }
     }
 }

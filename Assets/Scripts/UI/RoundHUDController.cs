@@ -9,8 +9,9 @@ namespace Platformer.UI
     public class RoundHUDController : MonoBehaviour
     {
         public TMP_Text timerText;
-        public TMP_Text outputText;
-        public TMP_Text goalText;
+        public TMP_Text hopeText;
+        public TMP_Text stressText;
+        public TMP_Text rapportText;
         public TMP_Text statusText;
 
         SessionModel session;
@@ -53,13 +54,15 @@ namespace Platformer.UI
                 var seconds = Mathf.CeilToInt(session.round.timeRemaining);
                 var minutes = seconds / 60;
                 var remainder = seconds % 60;
-                timerText.text = $"Time {minutes:00}:{remainder:00}";
+                timerText.text = $"Day {session.currentDay}/{SessionModel.TotalDays}  {minutes:00}:{remainder:00}";
             }
 
-            if (outputText != null)
-                outputText.text = $"Output {session.round.currentOutput}";
-            if (goalText != null)
-                goalText.text = $"Goal {session.round.targetOutput}";
+            if (hopeText != null)
+                hopeText.text = $"Hope {session.hope}";
+            if (stressText != null)
+                stressText.text = $"Stress {session.stress}";
+            if (rapportText != null)
+                rapportText.text = $"Rapport {session.rapport}";
 
             if (statusText != null)
             {
@@ -86,15 +89,16 @@ namespace Platformer.UI
             var hudRoot = new GameObject("RoundHUD", typeof(RectTransform));
             hudRoot.transform.SetParent(canvas.transform, false);
             var rect = hudRoot.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0f, 0f);
-            rect.anchorMax = new Vector2(1f, 0f);
-            rect.pivot = new Vector2(0.5f, 0f);
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(0.5f, 1f);
             rect.sizeDelta = new Vector2(0f, 56f);
-            rect.anchoredPosition = Vector2.zero;
+            rect.anchoredPosition = new Vector2(0f, -72f);
 
             timerText = CreateLabel(hudRoot.transform, new Vector2(0.05f, 0.5f), TextAlignmentOptions.Left);
-            outputText = CreateLabel(hudRoot.transform, new Vector2(0.35f, 0.5f), TextAlignmentOptions.Left);
-            goalText = CreateLabel(hudRoot.transform, new Vector2(0.58f, 0.5f), TextAlignmentOptions.Left);
+            hopeText = CreateLabel(hudRoot.transform, new Vector2(0.35f, 0.5f), TextAlignmentOptions.Left);
+            stressText = CreateLabel(hudRoot.transform, new Vector2(0.52f, 0.5f), TextAlignmentOptions.Left);
+            rapportText = CreateLabel(hudRoot.transform, new Vector2(0.69f, 0.5f), TextAlignmentOptions.Left);
             statusText = CreateLabel(hudRoot.transform, new Vector2(0.82f, 0.5f), TextAlignmentOptions.Left);
         }
 

@@ -19,9 +19,9 @@ namespace Platformer.Editor
                 "Workers stop and demand a decision that has nothing to do with output charts.",
                 new[]
                 {
-                    Option("Offer a break", "Morale rises. You lose a little time.", RandomEventEffectType.ModifyMorale, 15, RandomEventEffectType.RemoveTime, 8),
-                    Option("Push through", "Production spikes, but spirits drop.", RandomEventEffectType.ModifyProductionRate, 0.35f, RandomEventEffectType.ModifyMorale, -12),
-                    Option("Call it team building", "Reputation improves. Nobody knows why.", RandomEventEffectType.ModifyReputation, 4, RandomEventEffectType.NarrativeOnly, 0)
+                    Option("Offer a break", "Stress eases. You lose a little time.", RandomEventEffectType.ModifyStress, 15, RandomEventEffectType.RemoveTime, 8),
+                    Option("Push through", "Production spikes, but spirits drop.", RandomEventEffectType.ModifyProductionRate, 0.35f, RandomEventEffectType.ModifyStress, -12),
+                    Option("Call it team building", "Rapport improves. Nobody knows why.", RandomEventEffectType.ModifyRapport, 4, RandomEventEffectType.NarrativeOnly, 0)
                 });
 
             var audit = CreateEvent("Event_SurpriseAudit",
@@ -30,7 +30,7 @@ namespace Platformer.Editor
                 new[]
                 {
                     Option("Hide the mess", "A random station goes offline.", RandomEventEffectType.DisableRandomStation, 0),
-                    Option("Show transparency", "Karma increases.", RandomEventEffectType.AddKarma, 5),
+                    Option("Show transparency", "Hope increases.", RandomEventEffectType.AddHope, 5),
                     Option("Bribe with coffee", "You buy time with caffeine diplomacy.", RandomEventEffectType.AddTime, 12)
                 });
 
@@ -39,8 +39,8 @@ namespace Platformer.Editor
                 "Someone says the goalpost moved. It might be metaphorical. It might not.",
                 new[]
                 {
-                    Option("Deny it", "Morale falls slightly.", RandomEventEffectType.ModifyMorale, -8),
-                    Option("Lean into it", "Output slows, but workers feel heard.", RandomEventEffectType.ModifyProductionRate, -0.2f, RandomEventEffectType.ModifyMorale, 10),
+                    Option("Deny it", "Stress falls slightly.", RandomEventEffectType.ModifyStress, -8),
+                    Option("Lean into it", "Output slows, but workers feel heard.", RandomEventEffectType.ModifyProductionRate, -0.2f, RandomEventEffectType.ModifyStress, 10),
                     Option("Change the subject", "Nothing happens. Probably.", RandomEventEffectType.NarrativeOnly, 0)
                 });
 

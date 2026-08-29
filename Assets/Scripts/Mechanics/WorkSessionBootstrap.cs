@@ -24,12 +24,12 @@ namespace Platformer.Mechanics
 
         public WorkFloorLayout floorLayout;
         public float timeLimit = 90f;
-        public int targetOutput = 50;
         public bool autoStartOnLoad = true;
         public Canvas mainCanvas;
         public GameObject startPanel;
         public GameObject winPanelPrefab;
         public GameObject losePanelPrefab;
+        public EndingCatalog endingCatalog;
 
         static Sprite squareSprite;
         Transform workRoot;
@@ -96,29 +96,40 @@ namespace Platformer.Mechanics
                 confirmObject.AddComponent<WorkerPlacementConfirmUI>();
             }
 
+            if (FindFirstObjectByType<WorkerRosterBarUI>() == null)
+            {
+                var rosterBarObject = new GameObject("WorkerRosterBarUI");
+                rosterBarObject.AddComponent<WorkerRosterBarUI>();
+            }
+
             EnsureGameOverUI();
         }
 
         void EnsureGameOverUI()
         {
-            if (FindFirstObjectByType<GameOverUIController>() != null)
-                return;
-
             var canvas = mainCanvas != null ? mainCanvas : FindFirstObjectByType<Canvas>();
             if (canvas == null)
                 return;
 
-            var controllerObject = new GameObject("GameOverUI", typeof(RectTransform), typeof(GameOverUIController));
-            controllerObject.transform.SetParent(canvas.transform, false);
-            var rect = controllerObject.GetComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+            var controller = FindFirstObjectByType<GameOverUIController>();
+            if (controller == null)
+            {
+                var controllerObject = new GameObject("GameOverUI", typeof(RectTransform), typeof(GameOverUIController));
+                controllerObject.transform.SetParent(canvas.transform, false);
+                var rect = controllerObject.GetComponent<RectTransform>();
+                rect.anchorMin = Vector2.zero;
+                rect.anchorMax = Vector2.one;
+                rect.offsetMin = Vector2.zero;
+                rect.offsetMax = Vector2.zero;
+                controller = controllerObject.GetComponent<GameOverUIController>();
+            }
 
-            var controller = controllerObject.GetComponent<GameOverUIController>();
-            controller.winPanelPrefab = winPanelPrefab;
-            controller.losePanelPrefab = losePanelPrefab;
+            if (winPanelPrefab != null)
+                controller.winPanelPrefab = winPanelPrefab;
+            if (losePanelPrefab != null)
+                controller.losePanelPrefab = losePanelPrefab;
+            if (endingCatalog != null)
+                controller.endingCatalog = endingCatalog;
         }
 
         void BuildWorkFloor()
@@ -231,7 +242,7 @@ namespace Platformer.Mechanics
             for (var i = 0; i < floorLayout.rosterSlots.Length; i++)
             {
                 var slot = floorLayout.rosterSlots[i];
-                CreateWorker(parent, slot.role, floorLayout.NormalizedToWorld(slot.normalizedPosition));
+                CreateWorker(parent, slot.role, floorLayout.NormalizedToWorld(slot.normalizedPosition), slot.displayName);
             }
         }
 
@@ -239,24 +250,30 @@ namespace Platformer.Mechanics
         {
             var rosterPositions = new[]
             {
-                new Vector3(-6f, 1.5f, 0f),
-                new Vector3(-6f, 0.5f, 0f),
-                new Vector3(-6f, -0.5f, 0f),
-                new Vector3(-6f, -1.5f, 0f)
+                new Vector3(-4.5f, -3.85f, 0f),
+                new Vector3(-1.5f, -3.85f, 0f),
+                new Vector3(1.5f, -3.85f, 0f),
+                new Vector3(4.5f, -3.85f, 0f)
             };
 
             var roles = new[]
             {
-                WorkerRole.Builder,
                 WorkerRole.Analyst,
+                WorkerRole.Builder,
                 WorkerRole.Courier,
                 WorkerRole.Builder
             };
 
-            for (var i = 0; i < rosterPositions.Length; i++)
-                CreateWorker(parent, roles[i], rosterPositions[i]);
+            var names = new[]
+            {
+                "Dad",
+                "Mom",
+                "Mia",
+                "Leo"
+            };
 
-            CreateLabel(parent, "Workers", new Vector3(-6f, 2.5f, 0f));
+            for (var i = 0; i < rosterPositions.Length; i++)
+                CreateWorker(parent, roles[i], rosterPositions[i], names[i]);
         }
 
         static WorkStationDefinition DefaultPermanent(string label, WorkerRole role, Color color, int capacity)
@@ -340,9 +357,9 @@ namespace Platformer.Mechanics
             return station;
         }
 
-        void CreateWorker(Transform parent, WorkerRole role, Vector3 homePosition)
+        void CreateWorker(Transform parent, WorkerRole role, Vector3 homePosition, string workerName = null)
         {
-            var workerObject = new GameObject($"Worker_{role}", typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(WorkerUnit));
+            var workerObject = new GameObject($"Worker_{workerName ?? role.ToString()}", typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(WorkerUnit));
             workerObject.transform.SetParent(parent, false);
             workerObject.transform.localScale = Vector3.one * 0.7f;
 
@@ -354,7 +371,7 @@ namespace Platformer.Mechanics
             collider.radius = 0.45f;
 
             var worker = workerObject.GetComponent<WorkerUnit>();
-            worker.Initialize(role, homePosition);
+            worker.Initialize(role, homePosition, workerName);
         }
 
         void CreateLabel(Transform parent, string text, Vector3 localPosition)
@@ -466,7 +483,6 @@ namespace Platformer.Mechanics
         {
             var session = Simulation.GetModel<SessionModel>();
             session.round.timeLimit = timeLimit;
-            session.round.targetOutput = targetOutput;
 
             if (startPanel != null)
                 startPanel.SetActive(false);

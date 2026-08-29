@@ -60,6 +60,7 @@ namespace Platformer.Model
     [Serializable]
     public class RosterSlotDefinition
     {
+        public string displayName = "Worker";
         public Vector2 normalizedPosition = new Vector2(0.05f, 0.5f);
         public WorkerRole role = WorkerRole.Builder;
     }

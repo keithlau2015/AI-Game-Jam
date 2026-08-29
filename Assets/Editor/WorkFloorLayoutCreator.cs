@@ -53,10 +53,10 @@ namespace Platformer.Editor
             };
             layout.rosterSlots = new[]
             {
-                Roster(new Vector2(0.04f, 0.72f), WorkerRole.Builder),
-                Roster(new Vector2(0.04f, 0.58f), WorkerRole.Analyst),
-                Roster(new Vector2(0.04f, 0.44f), WorkerRole.Courier),
-                Roster(new Vector2(0.04f, 0.3f), WorkerRole.Builder)
+                Roster("Dad", new Vector2(0.18f, 0.06f), WorkerRole.Analyst),
+                Roster("Mom", new Vector2(0.4f, 0.06f), WorkerRole.Builder),
+                Roster("Mia", new Vector2(0.62f, 0.06f), WorkerRole.Courier),
+                Roster("Leo", new Vector2(0.84f, 0.06f), WorkerRole.Builder)
             };
 
             var path = $"{Root}/FamilyHomeLayout.asset";
@@ -108,10 +108,11 @@ namespace Platformer.Editor
             };
         }
 
-        static RosterSlotDefinition Roster(Vector2 normalizedPosition, WorkerRole role)
+        static RosterSlotDefinition Roster(string displayName, Vector2 normalizedPosition, WorkerRole role)
         {
             return new RosterSlotDefinition
             {
+                displayName = displayName,
                 normalizedPosition = normalizedPosition,
                 role = role
             };

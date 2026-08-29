@@ -43,8 +43,7 @@ namespace Platformer.UI
             var roleText = station.requiredRole == WorkerRole.Any ? "Any role" : station.requiredRole.ToString();
             var jobRole = worker.GetJobRoleForStation(station);
             var skill = worker.GetSkillForStation(station);
-            var efficiency = Mathf.RoundToInt(worker.GetEfficiencyForStation(station) * 100f);
-            return $"Assign {worker.role} to {station.stationId}?\nRequired: {roleText}   Capacity: {station.AssignedWorkers.Count + 1}/{station.capacity}\n{jobRole} skill {skill}   Efficiency {efficiency}%";
+            return $"Assign {worker.displayName} to {station.stationId}?\nRequired: {roleText}   Capacity: {station.AssignedWorkers.Count + 1}/{station.capacity}\n{jobRole} trait {skill}   {worker.GetAttributeSummary()}";
         }
 
         public void Hide()

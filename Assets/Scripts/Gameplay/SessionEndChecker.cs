@@ -14,14 +14,11 @@ namespace Platformer.Gameplay
 
             session.ClampStats();
 
-            if (session.HasStatWin())
-            {
-                Simulation.Schedule<RoundWon>();
-                return;
-            }
-
             if (session.HasStatLoss())
+            {
+                session.lastEndReason = RoundEndReason.StatMinReached;
                 Simulation.Schedule<RoundLost>();
+            }
         }
     }
 }

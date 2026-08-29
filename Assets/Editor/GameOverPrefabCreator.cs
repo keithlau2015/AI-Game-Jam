@@ -66,8 +66,21 @@ public static class GameOverPrefabCreator
         card.GetComponent<Image>().color = new Color(0.08f, 0.10f, 0.16f, 0.98f);
 
         var titleText = CreateText(card.transform, "Title", title, 52, titleColor, new Vector2(0.08f, 0.72f), new Vector2(0.92f, 0.92f));
-        var messageText = CreateText(card.transform, "Message", message, 24, new Color(0.82f, 0.87f, 0.95f, 1f), new Vector2(0.1f, 0.52f), new Vector2(0.9f, 0.7f));
-        var statsText = CreateText(card.transform, "Stats", "Karma 50   Morale 50   Reputation 50", 20, new Color(0.7f, 0.76f, 0.88f, 1f), new Vector2(0.1f, 0.34f), new Vector2(0.9f, 0.5f));
+        var dayText = CreateText(card.transform, "Day", "Day 1 / 4", 20, new Color(0.72f, 0.8f, 0.95f, 1f), new Vector2(0.1f, 0.66f), new Vector2(0.9f, 0.72f));
+
+        var imageObject = new GameObject("EndingImage", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        imageObject.transform.SetParent(card.transform, false);
+        var imageRect = imageObject.GetComponent<RectTransform>();
+        imageRect.anchorMin = new Vector2(0.18f, 0.42f);
+        imageRect.anchorMax = new Vector2(0.82f, 0.64f);
+        imageRect.offsetMin = Vector2.zero;
+        imageRect.offsetMax = Vector2.zero;
+        var endingImage = imageObject.GetComponent<Image>();
+        endingImage.color = Color.white;
+        endingImage.preserveAspect = true;
+
+        var messageText = CreateText(card.transform, "Message", message, 24, new Color(0.82f, 0.87f, 0.95f, 1f), new Vector2(0.1f, 0.24f), new Vector2(0.9f, 0.4f));
+        var statsText = CreateText(card.transform, "Stats", "Karma 50   Morale 50   Reputation 50", 20, new Color(0.7f, 0.76f, 0.88f, 1f), new Vector2(0.1f, 0.12f), new Vector2(0.9f, 0.22f));
 
         var buttonObject = new GameObject("RestartButton", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
         buttonObject.transform.SetParent(card.transform, false);
@@ -82,9 +95,12 @@ public static class GameOverPrefabCreator
 
         var view = root.GetComponent<GameOverPanelView>();
         view.titleText = titleText;
+        view.dayText = dayText;
         view.messageText = messageText;
         view.statsText = statsText;
+        view.endingImage = endingImage;
         view.restartButton = buttonObject.GetComponent<Button>();
+        view.restartButtonLabel = buttonLabel;
 
         PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
         Object.DestroyImmediate(root);
