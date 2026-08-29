@@ -6,6 +6,7 @@ namespace Platformer.Model
     public class RandomEventDefinition : ScriptableObject
     {
         public string title;
+        public string viewpointCharacter;
         [TextArea(3, 8)]
         public string description;
         public int weight = 1;

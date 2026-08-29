@@ -31,6 +31,7 @@ namespace Platformer.UI
         void Awake()
         {
             session = Simulation.GetModel<SessionModel>();
+            ResolveFont();
             EnsureUI();
             HideAll();
             RandomEventTriggered.OnExecute += OnEventTriggered;
@@ -81,11 +82,26 @@ namespace Platformer.UI
             choicePanelRoot.SetActive(false);
             ClearButtons();
             resultPanelRoot.SetActive(true);
-            resultTitleText.text = "Outcome";
+            resultTitleText.text = "結果";
             resultStatsText.text = RandomEventEffectPresentation.BuildResultLabel(option);
             resultDescriptionText.text = string.IsNullOrEmpty(option.outcomeText)
-                ? "The choice plays out quietly."
+                ? "這個選擇悄悄地發生了。"
                 : option.outcomeText;
+        }
+
+        void ResolveFont()
+        {
+            if (font != null)
+                return;
+
+            foreach (var fallbackFont in TMP_Settings.fallbackFontAssets)
+            {
+                if (fallbackFont != null && fallbackFont.name == "jf-openhuninn-2.1 SDF")
+                {
+                    font = fallbackFont;
+                    return;
+                }
+            }
         }
 
         void HideAll()
@@ -201,7 +217,7 @@ namespace Platformer.UI
             var confirmLabel = confirmLabelObject.GetComponent<TextMeshProUGUI>();
             if (font != null)
                 confirmLabel.font = font;
-            confirmLabel.text = "Confirm";
+            confirmLabel.text = "確認";
             confirmLabel.fontSize = 26;
             confirmLabel.alignment = TextAlignmentOptions.Center;
             confirmLabel.color = Color.white;

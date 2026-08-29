@@ -41,6 +41,8 @@ namespace Platformer.Model
         public float duration;
         public RandomEventEffectType secondaryEffectType;
         public float secondaryValue;
+        public RandomEventEffectType tertiaryEffectType;
+        public float tertiaryValue;
     }
 
     [Serializable]

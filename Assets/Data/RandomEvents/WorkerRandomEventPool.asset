@@ -13,9 +13,26 @@ MonoBehaviour:
   m_Name: WorkerRandomEventPool
   m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventPool
   events:
-  - {fileID: 11400000, guid: 69c1be725acc2d048869347409b8bda0, type: 2}
-  - {fileID: 11400000, guid: f5f1687654da4364595280cba9509b27, type: 2}
-  - {fileID: 11400000, guid: 3118b8d62d7a71140b093d6638b90319, type: 2}
+  - {fileID: 11400001, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400002, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400003, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400004, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400005, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400006, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400007, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400008, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400009, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400010, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400011, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400012, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400013, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400014, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400015, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400016, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400017, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400018, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400019, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
+  - {fileID: 11400020, guid: 37e5186292344ddf94a130bbb04dc325, type: 2}
   triggerOnTimer: 1
   intervalMin: 18
   intervalMax: 32

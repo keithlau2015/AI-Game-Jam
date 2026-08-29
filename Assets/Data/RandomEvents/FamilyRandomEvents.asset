@@ -1,0 +1,902 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_01
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 弟弟哭泣考試在即
+  viewpointCharacter: 弟弟
+  description: 我坐在地上哭，哥哥明天要考試，爸媽都在忙，我好想要人陪。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 要爸爸來哄我
+    outcomeText: 爸爸放下工作抱起我，我破涕為笑，但他半夜還在加班。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 媽媽來哄我
+    outcomeText: 媽媽溫柔拍拍我，我不哭了，但她累得腰都直不起來。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 哥哥戴耳機不理我
+    outcomeText: 哥哥繼續讀書，我哭更大聲，全家氣氛變得好緊繃。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 14
+    tertiaryValue: 10
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_02
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 媽媽做的菜難吃
+  viewpointCharacter: 媽媽
+  description: 我端上新菜，自己嚐了一口發現味道不對，但花了一下午，我好希望大家喜歡。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 爸爸開心吃完誇我
+    outcomeText: 爸爸大口吃完還說好吃，我超開心，但他其實喝了好多水。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 孩子說「我吃飽了」
+    outcomeText: 孩子放下筷子說吃飽了，我愣住，餐桌瞬間好安靜。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我自己倒掉重做
+    outcomeText: 我默默端回廚房重做，大家等了半小時，新菜終於能吃了。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+--- !u!114 &11400003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_03
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 繼承生意或追夢
+  viewpointCharacter: 爸爸
+  description: 我希望兒子接手店鋪，但他有自己的夢想，我不知該支持還是堅持。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我支持他追夢
+    outcomeText: 我拍著兒子的肩說「去吧」，他眼眶紅了，但我轉身時嘆了口氣。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 16
+    tertiaryValue: -10
+  - label: 我要求他先試一年
+    outcomeText: 我要求他試一年，他勉強答應，但眼神裡沒有光。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 兒子提出折中方案
+    outcomeText: 他說邊做邊學，全家都鬆口氣，但我看得出他壓力很大。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_04
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 郊遊 vs 朋友比賽
+  viewpointCharacter: 姐姐
+  description: 我約了朋友比賽，但全家計劃郊遊，我左右為難。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我推掉比賽陪家人
+    outcomeText: 我打電話跟朋友道歉，爸媽很開心，但整路我都沒什麼精神。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 爸爸支持我去比賽
+    outcomeText: 爸爸說「去吧」，我衝去比賽，但回家時媽媽表情不太對。
+    effectType: 15
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 媽媽提議上午比賽下午郊遊
+    outcomeText: 媽媽想出折中，我們趕場趕得好累，但至少都沒錯過。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_05
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 奶奶住院與畢業設計
+  viewpointCharacter: 媽媽
+  description: 婆婆住院，孩子畢業設計緊張，我和丈夫都累垮了。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我白天陪護晚上幫孩子
+    outcomeText: 我兩頭跑，晚上還幫孩子改論文，結果自己累到感冒。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我專心陪護讓孩子自己應對
+    outcomeText: 我專心照顧婆婆，孩子自己熬夜趕論文，兩個人都很憔悴。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我求助其他親戚
+    outcomeText: 我請堂妹幫忙分擔，大家壓力輕一些，但婆婆說還是習慣我照顧。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_06
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 妹妹弄壞心愛之物
+  viewpointCharacter: 姐姐
+  description: 我的限量玩具被妹妹摔壞，我氣到發抖。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我嚴厲罵妹妹
+    outcomeText: 我大罵妹妹，她大哭，爸媽跑來調解，全家亂成一團。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 媽媽安撫我並說會修好
+    outcomeText: 媽媽抱住我說會想辦法，我氣消了，但玩具真的修不回來。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 爸爸各打五十大板
+    outcomeText: 爸爸說我們都有錯，我和妹妹都不服，冷戰了一整天。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_07
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 爸爸生日 vs 換手機
+  viewpointCharacter: 爸爸
+  description: 我生日快到了，孩子好像有心事，我猜不透。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我暗示孩子不用買禮物
+    outcomeText: 我說「不用買」，孩子愣了一下，但我知道他手頭緊。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我直接說想要新工具
+    outcomeText: 我說想要一套新扳手，孩子點點頭，但表情有點為難。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我假裝不在意
+    outcomeText: 我笑笑說「隨便」，孩子鬆口氣，但我心裡有點失落。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_08
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 搶電視：球賽 vs 劇
+  viewpointCharacter: 爸爸
+  description: 我剛打開球賽，妻子就拿遙控器換到連續劇。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我讓給她
+    outcomeText: 我把遙控器遞給妻子，自己回房用手機看，她開心追劇。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我搶回遙控器
+    outcomeText: 我搶回來看球，妻子不高興，轉身去廚房。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我提議回看功能
+    outcomeText: 我提議先看劇再看球賽回放，她答應了，但我們看到很晚。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_09
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 發現哥哥抽煙
+  viewpointCharacter: 弟弟
+  description: 我撞見哥哥在陽台抽煙，他求我保密，我好猶豫。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 爸爸當面訓斥哥哥
+    outcomeText: 爸爸大罵哥哥，哥哥低頭不語，媽媽在旁邊一直嘆氣。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 爸爸私下找哥哥談心
+    outcomeText: 爸爸把哥哥叫去陽台，兩人談了很久，哥哥說他會戒。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 媽媽悄悄把煙收走
+    outcomeText: 媽媽趁哥哥睡覺時收走香煙，哥哥醒來後臉色好難看。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_10
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 媽媽安排相親
+  viewpointCharacter: 媽媽
+  description: 我幫孩子安排了相親，但孩子完全不想去。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我直接取消見面
+    outcomeText: 我打電話取消，孩子鬆口氣，但我嘆氣的聲音好大。
+    effectType: 15
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我強制孩子去
+    outcomeText: 我堅持要他去，他勉強去了，但回來後一整天不說話。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我讓孩子自己決定
+    outcomeText: 我說「你自己選吧」，孩子愣住，然後說「我不去」。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_11
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 弟弟被欺負
+  viewpointCharacter: 弟弟
+  description: 我在學校被欺負，哭著回家，求大家別說出去。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 爸爸去學校找老師
+    outcomeText: 爸爸衝去學校，對方道歉了，但同學都說我愛告狀。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 哥哥每天陪我上下學
+    outcomeText: 哥哥每天接送我，沒人再欺負我，但他社團都不能去了。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 媽媽偷偷聯繫老師
+    outcomeText: 媽媽瞞著我打電話給老師，問題解決了，但我氣媽媽騙我。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_12
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 外地高薪工作
+  viewpointCharacter: 爸爸
+  description: 孩子拿到外地大廠的offer，我既驕傲又不捨。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我支持他去
+    outcomeText: 我說「去吧」，孩子充滿信心，但妻子轉頭偷偷擦眼淚。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 16
+    tertiaryValue: -10
+  - label: 我勸他留在本地
+    outcomeText: 我說「留在身邊吧」，孩子猶豫了，但我知道他會遺憾。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: -10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 我讓他先試一年
+    outcomeText: 我說「先試一年，不行再回來」，他答應了，但多了牽掛。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_13
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 媽媽看中貴衣服
+  viewpointCharacter: 爸爸
+  description: 妻子看中一件大衣，但最近家裡開支緊。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我咬牙買下送她
+    outcomeText: 我掏錢買了，她好開心，但月底連看電影的錢都沒了。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我勸她等打折
+    outcomeText: 我說「等打折再買」，她點點頭，但走過櫥窗時還是回頭看了好幾眼。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我直接說太貴了
+    outcomeText: 我說「現在沒錢」，她沒說話，默默走開了。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_14
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 考研失敗
+  viewpointCharacter: 媽媽
+  description: 孩子考研失利，垂頭喪氣，我好心疼。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我做美食安慰他
+    outcomeText: 我做了一桌他愛吃的，他勉強笑了笑，但還是心事重重。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我幫他找調劑學校
+    outcomeText: 我四處打聽調劑資訊，他不太願意，但還是配合著填了資料。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我建議他先休息
+    outcomeText: 我說「先休息一陣子」，他鬆了口氣，但我知道他心裡還是不甘。
+    effectType: 15
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_15
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 客人來訪與遊戲
+  viewpointCharacter: 姐姐
+  description: 我正聯機打遊戲，客人快到了，媽媽催我收拾客廳。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我立刻暫停去收拾
+    outcomeText: 我關掉遊戲開始收拾，客人準時到，但我的隊友大概氣炸了。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 媽媽自己動手收拾
+    outcomeText: 媽媽嘆口氣自己收拾，我繼續打，但她忙得滿頭大汗。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 爸爸大聲命令我收
+    outcomeText: 爸爸吼我，我嚇得關機，但父子間的氣氛變得好僵。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+--- !u!114 &11400016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_16
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 爸爸教修車沒興趣
+  viewpointCharacter: 姐姐
+  description: 爸爸想教我修車，但我完全沒有興趣。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 爸爸硬拉著我學完
+    outcomeText: 爸爸教了兩小時，我勉強學會換機油，但全程臉都很臭。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 我直接說沒興趣
+    outcomeText: 我說「我不想學」，爸爸愣住，默默把工具箱收起來。
+    effectType: 15
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 媽媽幫我說話
+    outcomeText: 媽媽說「算了」，爸爸不說話，轉身走進屋裡。
+    effectType: 15
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_17
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 發現爸媽吵架
+  viewpointCharacter: 姐姐
+  description: 我聽到爸媽在吵架，站在門口，不知道該怎麼辦。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 爸爸主動跟我解釋
+    outcomeText: 爸爸深吸口氣說「我們只是意見不合」，我似懂非懂點點頭。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 媽媽抱住我說沒事
+    outcomeText: 媽媽蹲下來抱緊我，我稍微安心，但他們之間還是不說話。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我躲進房間戴耳機
+    outcomeText: 我快步回房間把音樂開到最大，但眼淚還是掉了下來。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_18
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 假期旅行意見不合
+  viewpointCharacter: 爸爸
+  description: 我想去爬山，妻子想海邊，孩子想遊樂場。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我們投票決定
+    outcomeText: 全家投票，妻子贏了，我和孩子只好聳聳肩接受。
+    effectType: 14
+    value: 10
+    duration: 0
+    secondaryEffectType: 16
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 我讓步
+    outcomeText: 我說「去海邊吧」，她們都笑了，但我默默收起了登山杖。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+  - label: 孩子說「隨便」
+    outcomeText: 孩子說「隨便你們」就回房間，我們面面相覷，氣氛瞬間冷了。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_19
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 發現父母變老
+  viewpointCharacter: 媽媽
+  description: 我照鏡子看到白髮和皺紋，突然覺得自己老了。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我笑著給孩子看舊照片
+    outcomeText: 我搬出三大本相冊，我們在客廳坐了一整個下午，好開心。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我拉丈夫一起回憶
+    outcomeText: 我拉著丈夫講年輕時的事，孩子在一旁聽得津津有味。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 14
+    secondaryValue: 10
+    tertiaryEffectType: 15
+    tertiaryValue: -10
+  - label: 我自己感嘆歲月，沉默
+    outcomeText: 我摸著白髮沉默了好久，孩子不知道該說什麼。
+    effectType: 16
+    value: -10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 0
+    tertiaryValue: 0
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cad5e0f69e266947af27c5f01867153, type: 3}
+  m_Name: Event_Family_20
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.RandomEventDefinition
+  title: 成立小家庭父母盼歸
+  viewpointCharacter: 姐姐
+  description: 我有了自己的小家，爸媽總盼著我回去，但工作很忙。
+  weight: 1
+  canRepeat: 0
+  options:
+  - label: 我每週帶伴侶回家
+    outcomeText: 我每週日回家吃飯，爸媽總是大費周章，但我們來回奔波好累。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: -10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 爸媽主動來看我
+    outcomeText: 爸媽帶了一堆菜來我家，我好驚喜，但房間變得好擠。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
+  - label: 我接爸媽來同住
+    outcomeText: 我把客房整理出來，三代同堂很溫馨，但生活習慣開始出現摩擦。
+    effectType: 16
+    value: 10
+    duration: 0
+    secondaryEffectType: 15
+    secondaryValue: 10
+    tertiaryEffectType: 14
+    tertiaryValue: -10
