@@ -1,9 +1,9 @@
 {
-  "characterId": "father",
+  "characterId": "younger-son",
   "engine": "component-row",
   "game_input": "sprite-sheet-alpha.png",
   "degraded_static_fallback": false,
-  "curation_applied": true,
+  "curation_applied": false,
   "frame_variant": "pixel",
   "sprite_sheet_alpha": "sprite-sheet-alpha.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
@@ -82,7 +82,7 @@
         "loop": true,
         "frame_variant": "pixel"
       },
-      "dad_suit_bag": {
+      "son_nap_bed": {
         "row": 4,
         "frames": 4,
         "fps": 4,
@@ -92,24 +92,37 @@
           250,
           250
         ],
-        "loop": false,
+        "loop": true,
         "frame_variant": "pixel"
       },
-      "dad_washing_dishes": {
+      "son_homework": {
         "row": 5,
         "frames": 4,
-        "fps": 4,
+        "fps": 8,
         "durations_ms": [
-          250,
-          250,
-          250,
-          250
+          125,
+          125,
+          125,
+          125
         ],
-        "loop": false,
+        "loop": true,
         "frame_variant": "pixel"
       },
-      "father_sleep_up": {
+      "son_schoolbag_uniform_walk_right": {
         "row": 6,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "younger_son_sleep_up": {
+        "row": 7,
         "frames": 4,
         "fps": 4,
         "durations_ms": [
@@ -125,7 +138,7 @@
   },
   "frame_layout": {
     "sheetWidth": 256,
-    "sheetHeight": 672,
+    "sheetHeight": 768,
     "cellWidth": 64,
     "cellHeight": 96,
     "rows": {
@@ -233,7 +246,7 @@
           "h": 96
         }
       ],
-      "dad_suit_bag": [
+      "son_nap_bed": [
         {
           "x": 0,
           "y": 384,
@@ -259,7 +272,7 @@
           "h": 96
         }
       ],
-      "dad_washing_dishes": [
+      "son_homework": [
         {
           "x": 0,
           "y": 480,
@@ -285,7 +298,7 @@
           "h": 96
         }
       ],
-      "father_sleep_up": [
+      "son_schoolbag_uniform_walk_right": [
         {
           "x": 0,
           "y": 576,
@@ -307,6 +320,32 @@
         {
           "x": 192,
           "y": 576,
+          "w": 64,
+          "h": 96
+        }
+      ],
+      "younger_son_sleep_up": [
+        {
+          "x": 0,
+          "y": 672,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 64,
+          "y": 672,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 128,
+          "y": 672,
+          "w": 64,
+          "h": 96
+        },
+        {
+          "x": 192,
+          "y": 672,
           "w": 64,
           "h": 96
         }
