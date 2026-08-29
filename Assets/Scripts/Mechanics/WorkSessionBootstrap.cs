@@ -24,8 +24,11 @@ namespace Platformer.Mechanics
 
         public float timeLimit = 90f;
         public int targetOutput = 50;
+        public bool autoStartOnLoad = true;
         public Canvas mainCanvas;
         public GameObject startPanel;
+        public GameObject winPanelPrefab;
+        public GameObject losePanelPrefab;
 
         static Sprite squareSprite;
         Transform workRoot;
@@ -40,6 +43,12 @@ namespace Platformer.Mechanics
             BuildWorkFloor();
             EnsureUI();
             EnsureControllers();
+        }
+
+        void Start()
+        {
+            if (autoStartOnLoad)
+                BeginSession();
         }
 
         void DisableLegacyObjects()
@@ -79,6 +88,30 @@ namespace Platformer.Mechanics
                 var sessionHudObject = new GameObject("SessionHUD");
                 sessionHudObject.AddComponent<SessionHUDController>();
             }
+
+            EnsureGameOverUI();
+        }
+
+        void EnsureGameOverUI()
+        {
+            if (FindFirstObjectByType<GameOverUIController>() != null)
+                return;
+
+            var canvas = mainCanvas != null ? mainCanvas : FindFirstObjectByType<Canvas>();
+            if (canvas == null)
+                return;
+
+            var controllerObject = new GameObject("GameOverUI", typeof(RectTransform), typeof(GameOverUIController));
+            controllerObject.transform.SetParent(canvas.transform, false);
+            var rect = controllerObject.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+
+            var controller = controllerObject.GetComponent<GameOverUIController>();
+            controller.winPanelPrefab = winPanelPrefab;
+            controller.losePanelPrefab = losePanelPrefab;
         }
 
         void BuildWorkFloor()
@@ -182,14 +215,26 @@ namespace Platformer.Mechanics
         void EnsureUI()
         {
             if (mainCanvas == null)
-                mainCanvas = FindFirstObjectByType<Canvas>();
+            {
+                var canvasObject = GameObject.Find("UI Canvas");
+                if (canvasObject != null)
+                    mainCanvas = canvasObject.GetComponent<Canvas>();
+            }
+
+            if (mainCanvas == null)
+                mainCanvas = FindAnyObjectByType<Canvas>();
+
             if (mainCanvas != null)
                 mainCanvas.gameObject.SetActive(true);
+
             EnsureStartPanel();
         }
 
         void EnsureStartPanel()
         {
+            if (autoStartOnLoad)
+                return;
+
             if (startPanel != null)
                 return;
 
