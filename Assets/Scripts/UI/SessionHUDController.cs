@@ -66,6 +66,16 @@ namespace Platformer.UI
             if (statusText != null)
                 return;
 
+            var hud = GameplayHUDView.Instance;
+            if (hud != null)
+            {
+                hud.EnsureBindings();
+                statusText = hud.statusText;
+            }
+
+            if (statusText != null)
+                return;
+
             var canvas = GetComponentInParent<Canvas>();
             if (canvas == null)
                 canvas = FindFirstObjectByType<Canvas>();

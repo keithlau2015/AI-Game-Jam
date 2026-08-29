@@ -251112,6 +251112,8 @@ MonoBehaviour:
     type: 3}
   losePanelPrefab: {fileID: 3556345582348313503, guid: 2ad739880e709bd43b1063058076390e,
     type: 3}
+  gameplayHudPrefab: {fileID: 1803130171087906740, guid: ea77f36b25679a64f908a520b113f985,
+    type: 3}
 --- !u!1 &1757862670
 GameObject:
   m_ObjectHideFlags: 0

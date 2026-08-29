@@ -1,0 +1,1543 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d9726790511ad4d980f3e488978ccf, type: 3}
+  m_Name: FamilyPopupTaskPool
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.Model.PopupTaskPool
+  csvSource: {fileID: 4900000, guid: 586530bf69341ad42a13c6a5621a38e7, type: 3}
+  maxConcurrentTasks: 3
+  minGapBetweenSpawns: 8
+  spawnNormalizedMin: {x: 0.12, y: 0.22}
+  spawnNormalizedMax: {x: 0.88, y: 0.78}
+  cachedTasks:
+  - taskId: "popup_1_\u6DF1\u591C\u6F0F\u6C34"
+    title: "\u6DF1\u591C\u6F0F\u6C34"
+    icon: "\U0001F4A7"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 01000000
+    existenceDuration: 15
+    spawnTimeMin: 10
+    spawnTimeMax: 30
+    workDuration: 8
+    successOutcomeRaw: "\u538B\u529B-15,\u7238\u60C5\u7EEA+10,\u3010\u878D\u6D3D\u3011+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u878D\u6D3D\u3011-10"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -15
+    - target: 3
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+  - taskId: "popup_2_\u7A81\u51FB\u68C0\u67E5\u624B\u673A"
+    title: "\u7A81\u51FB\u68C0\u67E5\u624B\u673A"
+    icon: "\U0001F4F1"
+    maxParticipants: 1
+    roleRequirementRaw: "\u54E5\u54E5 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0c000000
+    existenceDuration: 10
+    spawnTimeMin: 40
+    spawnTimeMax: 60
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u3010\u513F\u5973\u3011\u538B\u529B-10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D-15,\u3010\u7236\u6BCD\u3011\u538B\u529B+15,\u3010\u513F\u5973\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 1
+      member: 12
+      delta: -10
+    failureEffects:
+    - target: 2
+      member: 15
+      delta: -15
+    - target: 1
+      member: 3
+      delta: 15
+    - target: 3
+      member: 12
+      delta: -20
+  - taskId: "popup_3_\u73ED\u4E3B\u4EFB\u5348\u95F4\u7535\u8054"
+    title: "\u73ED\u4E3B\u4EFB\u5348\u95F4\u7535\u8054"
+    icon: "\U0001F4DE"
+    maxParticipants: 1
+    roleRequirementRaw: "\u5988\u5988 \u6216 \u7238\u7238"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 03000000
+    existenceDuration: 12
+    spawnTimeMin: 20
+    spawnTimeMax: 50
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+15,\u3010\u7236\u6BCD\u3011\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u878D\u6D3D\u3011-5,\u3010\u513F\u5973\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 15
+    - target: 1
+      member: 3
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 12
+      delta: -10
+  - taskId: "popup_4_\u62A2\u593A\u9065\u63A7\u5668"
+    title: "\u62A2\u593A\u9065\u63A7\u5668"
+    icon: "\U0001F4FA"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000008000000
+    existenceDuration: 8
+    spawnTimeMin: 15
+    spawnTimeMax: 45
+    workDuration: 4
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20,\u3010\u5144\u59B9\u3011\u60C5\u7EEA+15"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u878D\u6D3D\u3011-15,\u3010\u5144\u59B9\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 20
+    - target: 3
+      member: 12
+      delta: 15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 12
+      delta: -10
+  - taskId: "popup_5_\u70E7\u7126\u7684\u7EA2\u70E7\u8089"
+    title: "\u70E7\u7126\u7684\u7EA2\u70E7\u8089"
+    icon: "\U0001F373"
+    maxParticipants: 1
+    roleRequirementRaw: "\u5988\u5988 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 02000000
+    existenceDuration: 10
+    spawnTimeMin: 65
+    spawnTimeMax: 90
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5,\u3010\u5988\u5988\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-5"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 5
+    - target: 3
+      member: 2
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 15
+      delta: -5
+  - taskId: "popup_6_\u5BB6\u5EAD\u7FA4\u4F2A\u79D1\u5B66\u63A8\u6587"
+    title: "\u5BB6\u5EAD\u7FA4\u4F2A\u79D1\u5B66\u63A8\u6587"
+    icon: "\U0001F4AC"
+    maxParticipants: 2
+    roleRequirementRaw: "\u65E0\u9650\u5236\uFF08\u4EFB\u610F2\u4EBA\uFF09"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 20
+    spawnTimeMin: 70
+    spawnTimeMax: 110
+    workDuration: 10
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+10,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D-10,\u3010\u89E6\u53D1\u8005\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 10
+    - target: 2
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 2
+      member: 15
+      delta: -10
+    - target: 3
+      member: 0
+      delta: -10
+  - taskId: "popup_7_\u79C1\u623F\u94B1\u5371\u673A"
+    title: "\u79C1\u623F\u94B1\u5371\u673A"
+    icon: "\U0001F4B5"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 (\u54E5\u6216\u59B9)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 010000000c000000
+    existenceDuration: 14
+    spawnTimeMin: 50
+    spawnTimeMax: 85
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u3010\u7238\u7238\u3011\u60C5\u7EEA+20,\u3010\u534F\u52A9\u8005\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5988\u5988\u3011\u60C5\u7EEA+15,\u3010\u7238\u7238\u3011\u60C5\u7EEA-25"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 3
+      member: 1
+      delta: 20
+    - target: 3
+      member: 0
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 2
+      delta: 15
+    - target: 3
+      member: 1
+      delta: -25
+  - taskId: "popup_8_\u6DF1\u591C\u8F85\u5BFC\u529F\u8BFE"
+    title: "\u6DF1\u591C\u8F85\u5BFC\u529F\u8BFE"
+    icon: "\U0001F4DD"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5988\u5988 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0200000008000000
+    existenceDuration: 15
+    spawnTimeMin: 80
+    spawnTimeMax: 105
+    workDuration: 12
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+20,\u3010\u5168\u5BB6\u3011\u538B\u529B-10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+30,\u3010\u6BCD\u5973\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 20
+    - target: 1
+      member: 15
+      delta: -10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 30
+    - target: 3
+      member: 10
+      delta: -15
+  - taskId: "popup_9_\u4E89\u593A\u6700\u540E\u4E00\u5757\u70B8\u9E21"
+    title: "\u4E89\u593A\u6700\u540E\u4E00\u5757\u70B8\u9E21"
+    icon: "\U0001F357"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000008000000
+    existenceDuration: 8
+    spawnTimeMin: 5
+    spawnTimeMax: 25
+    workDuration: 3
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u3010\u5144\u59B9\u3011\u60C5\u7EEA+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D-10,\u3010\u5144\u59B9\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 3
+      member: 12
+      delta: 5
+    failureEffects:
+    - target: 2
+      member: 15
+      delta: -10
+    - target: 3
+      member: 12
+      delta: -15
+  - taskId: "popup_10_\u5269\u83DC\u4FDD\u5ACC\u76D2\u62FC\u56FE"
+    title: "\u5269\u83DC\u4FDD\u5ACC\u76D2\u62FC\u56FE"
+    icon: "\U0001F371"
+    maxParticipants: 1
+    roleRequirementRaw: "\u4EFB\u610F1\u4EBA"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 12
+    spawnTimeMin: 35
+    spawnTimeMax: 65
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5,\u3010\u5E0C\u671B\u3011+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u878D\u6D3D\u3011-5"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+  - taskId: "popup_11_\u9A6C\u6876\u4E25\u91CD\u5835\u585E"
+    title: "\u9A6C\u6876\u4E25\u91CD\u5835\u585E"
+    icon: "\U0001F6BD"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u6216 \u54E5\u54E5"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 05000000
+    existenceDuration: 15
+    spawnTimeMin: 15
+    spawnTimeMax: 40
+    workDuration: 9
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-15,\u3010\u878D\u6D3D\u3011+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 3
+      member: 15
+      delta: -10
+  - taskId: "popup_12_\u7A81\u964D\u66B4\u96E8\u6536\u8863\u670D"
+    title: "\u7A81\u964D\u66B4\u96E8\u6536\u8863\u670D"
+    icon: "\U0001F455"
+    maxParticipants: 2
+    roleRequirementRaw: "\u4EFB\u610F2\u4EBA"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 10
+    spawnTimeMin: 45
+    spawnTimeMax: 75
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u60C5\u7EEA-5"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 3
+      member: 15
+      delta: -5
+  - taskId: "popup_13_\u7EB8\u5DFE\u788E\u6EE1\u6D17\u8863\u673A"
+    title: "\u7EB8\u5DFE\u788E\u6EE1\u6D17\u8863\u673A"
+    icon: "\U0001F9FA"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5988\u5988 \u4E14 (\u54E5\u6216\u59B9)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 020000000c000000
+    existenceDuration: 18
+    spawnTimeMin: 55
+    spawnTimeMax: 85
+    workDuration: 11
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-10,\u3010\u878D\u6D3D\u3011+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u513F\u5973\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 3
+      member: 12
+      delta: -15
+  - taskId: "popup_14_\u51B0\u7BB1\u7ED3\u971C\u6E05\u7406"
+    title: "\u51B0\u7BB1\u7ED3\u971C\u6E05\u7406"
+    icon: "\u2744\uFE0F"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u6216 \u5988\u5988"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 03000000
+    existenceDuration: 20
+    spawnTimeMin: 60
+    spawnTimeMax: 100
+    workDuration: 15
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+10,\u3010\u5168\u5BB6\u3011\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 10
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+  - taskId: "popup_15_\u957F\u8F88\u89C6\u9891\u7535\u8BDD"
+    title: "\u957F\u8F88\u89C6\u9891\u7535\u8BDD"
+    icon: "\U0001F475"
+    maxParticipants: 4
+    roleRequirementRaw: "\u5168\u5BB6 \u5FC5\u987B\u5168\u90E8\u53C2\u52A0"
+    requirement:
+      minParticipants: 4
+      maxParticipants: 4
+      requireAllFamily: 1
+      forbiddenMask: 0
+      requiredGroups: 
+    existenceDuration: 25
+    spawnTimeMin: 30
+    spawnTimeMax: 70
+    workDuration: 14
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+25,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B-15,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-15"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 25
+    - target: 2
+      member: 15
+      delta: 20
+    failureEffects:
+    - target: 0
+      member: 15
+      delta: -15
+    - target: 2
+      member: 15
+      delta: -15
+  - taskId: "popup_16_\u7A81\u51FB\u5168\u5C4B\u5927\u626B\u9664"
+    title: "\u7A81\u51FB\u5168\u5C4B\u5927\u626B\u9664"
+    icon: "\U0001F9F9"
+    maxParticipants: 4
+    roleRequirementRaw: "\u5168\u5BB6 \u5FC5\u987B\u5168\u90E8\u53C2\u52A0"
+    requirement:
+      minParticipants: 4
+      maxParticipants: 4
+      requireAllFamily: 1
+      forbiddenMask: 0
+      requiredGroups: 
+    existenceDuration: 30
+    spawnTimeMin: 20
+    spawnTimeMax: 60
+    workDuration: 20
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+25,\u3010\u5168\u5BB6\u3011\u538B\u529B-15"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+35,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-20"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 25
+    - target: 1
+      member: 15
+      delta: -15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 35
+    - target: 2
+      member: 15
+      delta: -20
+  - taskId: "popup_17_\u5FD8\u8BB0\u7ED3\u5A5A\u7EAA\u5FF5\u65E5"
+    title: "\u5FD8\u8BB0\u7ED3\u5A5A\u7EAA\u5FF5\u65E5"
+    icon: "\U0001F494"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 01000000
+    existenceDuration: 12
+    spawnTimeMin: 10
+    spawnTimeMax: 40
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20,\u3010\u7236\u6BCD\u3011\u60C5\u7EEA+15"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+30,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-25"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 20
+    - target: 3
+      member: 3
+      delta: 15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 30
+    - target: 2
+      member: 15
+      delta: -25
+  - taskId: "popup_18_\u65B0\u53D1\u578B\u65E0\u4EBA\u5938"
+    title: "\u65B0\u53D1\u578B\u65E0\u4EBA\u5938"
+    icon: "\U0001F487"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 (\u54E5\u6216\u59B9)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 010000000c000000
+    existenceDuration: 15
+    spawnTimeMin: 40
+    spawnTimeMax: 80
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u3010\u5988\u5988\u3011\u60C5\u7EEA+20"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u3010\u5988\u5988\u3011\u60C5\u7EEA-25"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 3
+      member: 2
+      delta: 20
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 3
+      member: 2
+      delta: -25
+  - taskId: "popup_19_\u4E70\u83DC\u7B97\u9519\u8D26"
+    title: "\u4E70\u83DC\u7B97\u9519\u8D26"
+    icon: "\U0001FA99"
+    maxParticipants: 1
+    roleRequirementRaw: "\u5988\u5988 \u6216 \u7238\u7238"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 03000000
+    existenceDuration: 10
+    spawnTimeMin: 15
+    spawnTimeMax: 45
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+5,\u3010\u64CD\u4F5C\u8005\u3011\u60C5\u7EEA+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u64CD\u4F5C\u8005\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 5
+    - target: 3
+      member: 0
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 0
+      delta: -10
+  - taskId: "popup_20_\u80A1\u7968\u5927\u8DCC_\u5F00\u76D8\u7EFF"
+    title: "\u80A1\u7968\u5927\u8DCC/\u5F00\u76D8\u7EFF"
+    icon: "\U0001F4C9"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 01000000
+    existenceDuration: 14
+    spawnTimeMin: 25
+    spawnTimeMax: 55
+    workDuration: 8
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-10,\u3010\u7238\u7238\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B-20,\u3010\u7238\u7238\u3011\u60C5\u7EEA-30"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -10
+    - target: 3
+      member: 1
+      delta: 10
+    failureEffects:
+    - target: 0
+      member: 15
+      delta: -20
+    - target: 3
+      member: 1
+      delta: -30
+  - taskId: "popup_21_\u5077\u5077\u4FEE\u6539\u6210\u7EE9\u5355"
+    title: "\u5077\u5077\u4FEE\u6539\u6210\u7EE9\u5355"
+    icon: "\U0001F4AF"
+    maxParticipants: 1
+    roleRequirementRaw: "\u54E5\u54E5 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0c000000
+    existenceDuration: 10
+    spawnTimeMin: 50
+    spawnTimeMax: 80
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u513F\u5973\u3011\u538B\u529B-20,\u3010\u5168\u5BB6\u3011\u5E0C\u671B+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+35,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-20"
+    successEffects:
+    - target: 1
+      member: 12
+      delta: -20
+    - target: 0
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 35
+    - target: 2
+      member: 15
+      delta: -20
+  - taskId: "popup_22_\u59B9\u59B9\u65E5\u8BB0\u672C\u5371\u673A"
+    title: "\u59B9\u59B9\u65E5\u8BB0\u672C\u5371\u673A"
+    icon: "\U0001F4D6"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000008000000
+    existenceDuration: 12
+    spawnTimeMin: 30
+    spawnTimeMax: 60
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5144\u59B9\u3011\u60C5\u7EEA+15,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D-20,\u3010\u59B9\u59B9\u3011\u60C5\u7EEA-25"
+    successEffects:
+    - target: 3
+      member: 12
+      delta: 15
+    - target: 2
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 2
+      member: 15
+      delta: -20
+    - target: 3
+      member: 8
+      delta: -25
+  - taskId: "popup_23_\u5916\u5356\u9001\u9519\u5F15\u53D1\u9965\u997F"
+    title: "\u5916\u5356\u9001\u9519\u5F15\u53D1\u9965\u997F"
+    icon: "\U0001F6F5"
+    maxParticipants: 2
+    roleRequirementRaw: "\u4EFB\u610F2\u4EBA"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 15
+    spawnTimeMin: 65
+    spawnTimeMax: 95
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 15
+      delta: -15
+  - taskId: "popup_24_\u732B\u54AA\u6293\u574F\u6C99\u53D1"
+    title: "\u732B\u54AA\u6293\u574F\u6C99\u53D1"
+    icon: "\U0001F431"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000008000000
+    existenceDuration: 10
+    spawnTimeMin: 10
+    spawnTimeMax: 35
+    workDuration: 4
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u3010\u7236\u6BCD\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 3
+      member: 3
+      delta: -15
+  - taskId: "popup_25_\u7A7A\u8C03\u7A81\u7136\u6F0F\u6C34"
+    title: "\u7A7A\u8C03\u7A81\u7136\u6F0F\u6C34"
+    icon: "\U0001F4A8"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u6216 \u54E5\u54E5"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 05000000
+    existenceDuration: 14
+    spawnTimeMin: 70
+    spawnTimeMax: 100
+    workDuration: 9
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-15,\u3010\u878D\u6D3D\u3011+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-10"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 3
+      member: 15
+      delta: -10
+  - taskId: "popup_26_\u7A81\u7136\u505C\u7535\u4E4C\u9ED1\u4E00\u7247"
+    title: "\u7A81\u7136\u505C\u7535\u4E4C\u9ED1\u4E00\u7247"
+    icon: "\U0001F50C"
+    maxParticipants: 4
+    roleRequirementRaw: "\u5168\u5BB6 \u5FC5\u987B\u5168\u90E8\u53C2\u52A0"
+    requirement:
+      minParticipants: 4
+      maxParticipants: 4
+      requireAllFamily: 1
+      forbiddenMask: 0
+      requiredGroups: 
+    existenceDuration: 20
+    spawnTimeMin: 80
+    spawnTimeMax: 115
+    workDuration: 10
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+25,\u3010\u5168\u5BB6\u3011\u538B\u529B-10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 25
+    - target: 1
+      member: 15
+      delta: -10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 15
+      delta: -15
+  - taskId: "popup_27_\u7F51\u901F\u7A81\u7136\u5361\u6B7B"
+    title: "\u7F51\u901F\u7A81\u7136\u5361\u6B7B"
+    icon: "\U0001F310"
+    maxParticipants: 1
+    roleRequirementRaw: "\u54E5\u54E5 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0c000000
+    existenceDuration: 8
+    spawnTimeMin: 40
+    spawnTimeMax: 70
+    workDuration: 4
+    successOutcomeRaw: "\u3010\u513F\u5973\u3011\u60C5\u7EEA+10,\u3010\u5168\u5BB6\u3011\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u513F\u5973\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 3
+      member: 12
+      delta: 10
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 12
+      delta: -15
+  - taskId: "popup_28_\u9519\u5931\u9650\u91CF\u7248\u7403\u978B_\u6F6E\u73A9"
+    title: "\u9519\u5931\u9650\u91CF\u7248\u7403\u978B/\u6F6E\u73A9"
+    icon: "\U0001F45F"
+    maxParticipants: 1
+    roleRequirementRaw: "\u54E5\u54E5 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 04000000
+    existenceDuration: 10
+    spawnTimeMin: 20
+    spawnTimeMax: 50
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u54E5\u54E5\u3011\u60C5\u7EEA+20,\u5E0C\u671B+5"
+    failureOutcomeRaw: "\u3010\u54E5\u54E5\u3011\u60C5\u7EEA-25,\u538B\u529B+5"
+    successEffects:
+    - target: 3
+      member: 4
+      delta: 20
+    - target: 0
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 3
+      member: 4
+      delta: -25
+    - target: 1
+      member: 15
+      delta: 5
+  - taskId: "popup_29_\u5783\u573E\u5206\u7C7B\u6254\u9519\u88AB\u7F5A"
+    title: "\u5783\u573E\u5206\u7C7B\u6254\u9519\u88AB\u7F5A"
+    icon: "\U0001F5D1\uFE0F"
+    maxParticipants: 1
+    roleRequirementRaw: "\u4EFB\u610F1\u4EBA"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 12
+    spawnTimeMin: 15
+    spawnTimeMax: 45
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5,\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u5E0C\u671B-5"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 5
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 0
+      member: 15
+      delta: -5
+  - taskId: "popup_30_\u5988\u5988\u7684\u5520\u53E8\u7206\u53D1"
+    title: "\u5988\u5988\u7684\u5520\u53E8\u7206\u53D1"
+    icon: "\U0001F5E3\uFE0F"
+    maxParticipants: 3
+    roleRequirementRaw: "\u9664\u4E86\u5988\u5988\u7684\u4EFB\u610F3\u4EBA"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 2
+      requiredGroups: 0d000000
+    existenceDuration: 15
+    spawnTimeMin: 50
+    spawnTimeMax: 90
+    workDuration: 12
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-25,\u3010\u5988\u5988\u3011\u60C5\u7EEA+20"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+35,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -25
+    - target: 3
+      member: 2
+      delta: 20
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 35
+    - target: 2
+      member: 15
+      delta: -15
+  - taskId: "popup_31_\u7238\u7238\u6DF1\u591C\u9189\u9152\u56DE\u5BB6"
+    title: "\u7238\u7238\u6DF1\u591C\u9189\u9152\u56DE\u5BB6"
+    icon: "\U0001F37A"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5988\u5988 \u4E14 (\u54E5\u6216\u59B9)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 020000000c000000
+    existenceDuration: 18
+    spawnTimeMin: 85
+    spawnTimeMax: 115
+    workDuration: 10
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u3010\u7238\u7238\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 3
+      member: 1
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 2
+      member: 15
+      delta: -15
+  - taskId: "popup_32_\u59B9\u59B9\u73A9\u5177\u4E22\u4E86\u568E\u5555\u5927\u54ED"
+    title: "\u59B9\u59B9\u73A9\u5177\u4E22\u4E86\u568E\u5555\u5927\u54ED"
+    icon: "\U0001F9F8"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000008000000
+    existenceDuration: 12
+    spawnTimeMin: 10
+    spawnTimeMax: 40
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5144\u59B9\u3011\u60C5\u7EEA+15,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u3010\u59B9\u59B9\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 3
+      member: 12
+      delta: 15
+    - target: 2
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 3
+      member: 8
+      delta: -20
+  - taskId: "popup_33_\u5168\u5BB6\u6876\u4F18\u60E0\u5238\u5230\u671F"
+    title: "\u5168\u5BB6\u6876\u4F18\u60E0\u5238\u5230\u671F"
+    icon: "\U0001F3AB"
+    maxParticipants: 1
+    roleRequirementRaw: "\u4EFB\u610F1\u4EBA"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 8
+    spawnTimeMin: 5
+    spawnTimeMax: 35
+    workDuration: 3
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u60C5\u7EEA+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+5,\u60C5\u7EEA-5"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 3
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 5
+    - target: 3
+      member: 15
+      delta: -5
+  - taskId: "popup_34_\u957F\u8F88\u53D1\u670B\u53CB\u5708\u7D22\u8D5E"
+    title: "\u957F\u8F88\u53D1\u670B\u53CB\u5708\u7D22\u8D5E"
+    icon: "\U0001F44D"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 \u5988\u5988"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0100000002000000
+    existenceDuration: 15
+    spawnTimeMin: 30
+    spawnTimeMax: 60
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u5E0C\u671B+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D-10"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 0
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 2
+      member: 15
+      delta: -10
+  - taskId: "popup_35_\u54E5\u54E5\u6253\u6E38\u620F\u58F0\u97F3\u592A\u5927"
+    title: "\u54E5\u54E5\u6253\u6E38\u620F\u58F0\u97F3\u592A\u5927"
+    icon: "\U0001F3A7"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5988\u5988 \u4E14 \u54E5\u54E5"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0200000004000000
+    existenceDuration: 10
+    spawnTimeMin: 60
+    spawnTimeMax: 90
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-10,\u3010\u5988\u5988\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u6BCD\u5B50\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -10
+    - target: 3
+      member: 2
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 6
+      delta: -15
+  - taskId: "popup_36_\u59B9\u59B9\u5F04\u810F\u65B0\u8863\u670D"
+    title: "\u59B9\u59B9\u5F04\u810F\u65B0\u8863\u670D"
+    icon: "\U0001F457"
+    maxParticipants: 1
+    roleRequirementRaw: "\u5988\u5988 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0a000000
+    existenceDuration: 12
+    spawnTimeMin: 20
+    spawnTimeMax: 50
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5,\u3010\u59B9\u59B9\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15,\u3010\u5988\u5988\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 5
+    - target: 3
+      member: 8
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+    - target: 3
+      member: 2
+      delta: -15
+  - taskId: "popup_37_\u7238\u7238\u7684\u6C7D\u8F66\u8B66\u62A5\u54CD\u4E86"
+    title: "\u7238\u7238\u7684\u6C7D\u8F66\u8B66\u62A5\u54CD\u4E86"
+    icon: "\U0001F697"
+    maxParticipants: 1
+    roleRequirementRaw: "\u7238\u7238 \u5FC5\u987B\u53C2\u52A0"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 01000000
+    existenceDuration: 10
+    spawnTimeMin: 15
+    spawnTimeMax: 45
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-10,\u3010\u7238\u7238\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u7238\u7238\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -10
+    - target: 3
+      member: 1
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 1
+      delta: -15
+  - taskId: "popup_38_\u5929\u964D\u4E0D\u660E\u5FEB\u9012"
+    title: "\u5929\u964D\u4E0D\u660E\u5FEB\u9012"
+    icon: "\U0001F4E6"
+    maxParticipants: 1
+    roleRequirementRaw: "\u4EFB\u610F1\u4EBA"
+    requirement:
+      minParticipants: 1
+      maxParticipants: 1
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 14
+    spawnTimeMin: 40
+    spawnTimeMax: 70
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+10,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+5"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 10
+    - target: 2
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 5
+  - taskId: "popup_39_\u54E5\u54E5\u623F\u95F4\u98D8\u51FA\u5F02\u5473"
+    title: "\u54E5\u54E5\u623F\u95F4\u98D8\u51FA\u5F02\u5473"
+    icon: "\U0001F9E6"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5988\u5988 \u4E14 \u54E5\u54E5"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0200000004000000
+    existenceDuration: 12
+    spawnTimeMin: 55
+    spawnTimeMax: 85
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-10,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5988\u5988\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -10
+    - target: 2
+      member: 15
+      delta: 5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 2
+      delta: -15
+  - taskId: "popup_40_\u59B9\u59B9\u628A\u753B\u753B\u5728\u767D\u5899\u4E0A"
+    title: "\u59B9\u59B9\u628A\u753B\u753B\u5728\u767D\u5899\u4E0A"
+    icon: "\U0001F3A8"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0100000008000000
+    existenceDuration: 15
+    spawnTimeMin: 25
+    spawnTimeMax: 55
+    workDuration: 8
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u3010\u7236\u5973\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5988\u5988\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 3
+      member: 15
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 3
+      member: 2
+      delta: -20
+  - taskId: "popup_41_\u90BB\u5C45\u6295\u8BC9\u566A\u97F3"
+    title: "\u90BB\u5C45\u6295\u8BC9\u566A\u97F3"
+    icon: "\U0001F92B"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u6216 \u5988\u5988"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 03000000
+    existenceDuration: 10
+    spawnTimeMin: 60
+    spawnTimeMax: 90
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-15,\u3010\u878D\u6D3D\u3011+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u878D\u6D3D\u3011-15"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+  - taskId: "popup_42_\u54E5\u54E5\u6A21\u62DF\u8003\u4E25\u91CD\u9000\u6B65"
+    title: "\u54E5\u54E5\u6A21\u62DF\u8003\u4E25\u91CD\u9000\u6B65"
+    icon: "\U0001F4C9"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 \u54E5\u54E5"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0100000004000000
+    existenceDuration: 18
+    spawnTimeMin: 75
+    spawnTimeMax: 105
+    workDuration: 11
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+15,\u3010\u7236\u5B50\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+30,\u3010\u5168\u5BB6\u3011\u5E0C\u671B-15"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 15
+    - target: 3
+      member: 5
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 30
+    - target: 0
+      member: 15
+      delta: -15
+  - taskId: "popup_43_\u7A81\u7136\u6709\u91CD\u8981\u5BA2\u4EBA\u62DC\u8BBF"
+    title: "\u7A81\u7136\u6709\u91CD\u8981\u5BA2\u4EBA\u62DC\u8BBF"
+    icon: "\U0001F465"
+    maxParticipants: 4
+    roleRequirementRaw: "\u5168\u5BB6 \u5FC5\u987B\u5168\u90E8\u53C2\u52A0"
+    requirement:
+      minParticipants: 4
+      maxParticipants: 4
+      requireAllFamily: 1
+      forbiddenMask: 0
+      requiredGroups: 
+    existenceDuration: 22
+    spawnTimeMin: 40
+    spawnTimeMax: 80
+    workDuration: 15
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+30,\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u5168\u5BB6\u3011\u5E0C\u671B-10"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 30
+    - target: 2
+      member: 15
+      delta: 20
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 0
+      member: 15
+      delta: -10
+  - taskId: "popup_44_\u7238\u7238\u5F04\u4E22\u7ED3\u5A5A\u6212\u6307"
+    title: "\u7238\u7238\u5F04\u4E22\u7ED3\u5A5A\u6212\u6307"
+    icon: "\U0001F48D"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 (\u54E5\u6216\u59B9)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 010000000c000000
+    existenceDuration: 15
+    spawnTimeMin: 15
+    spawnTimeMax: 50
+    workDuration: 9
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20,\u3010\u7238\u7238\u3011\u60C5\u7EEA+20"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+35,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-25"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 20
+    - target: 3
+      member: 1
+      delta: 20
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 35
+    - target: 2
+      member: 15
+      delta: -25
+  - taskId: "popup_45_\u5988\u5988\u4E70\u7684\u690D\u7269\u67AF\u840E\u4E86"
+    title: "\u5988\u5988\u4E70\u7684\u690D\u7269\u67AF\u840E\u4E86"
+    icon: "\U0001FAB4"
+    maxParticipants: 1
+    roleRequirementRaw: "\u5988\u5988 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0a000000
+    existenceDuration: 12
+    spawnTimeMin: 35
+    spawnTimeMax: 65
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+5,\u3010\u64CD\u4F5C\u8005\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u5988\u5988\u3011\u60C5\u7EEA-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 5
+    - target: 3
+      member: 0
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 2
+      delta: -15
+  - taskId: "popup_46_\u54E5\u54E5\u71AC\u591C\u5199\u4E0D\u5B8C\u4F5C\u4E1A"
+    title: "\u54E5\u54E5\u71AC\u591C\u5199\u4E0D\u5B8C\u4F5C\u4E1A"
+    icon: "\u23F0"
+    maxParticipants: 2
+    roleRequirementRaw: "\u54E5\u54E5 \u4E14 (\u7238\u6216\u5988)"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0400000003000000
+    existenceDuration: 16
+    spawnTimeMin: 80
+    spawnTimeMax: 110
+    workDuration: 10
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u5E0C\u671B+15,\u3010\u54E5\u54E5\u3011\u538B\u529B-10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+25,\u3010\u54E5\u54E5\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 0
+      member: 15
+      delta: 15
+    - target: 1
+      member: 4
+      delta: -10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 25
+    - target: 3
+      member: 4
+      delta: -20
+  - taskId: "popup_47_\u59B9\u59B9\u751F\u75C5\u989D\u5934\u6EDA\u70EB"
+    title: "\u59B9\u59B9\u751F\u75C5\u989D\u5934\u6EDA\u70EB"
+    icon: "\U0001F912"
+    maxParticipants: 3
+    roleRequirementRaw: "\u9664\u4E86\u5988\u5988\u7684\u4EFB\u610F3\u4EBA"
+    requirement:
+      minParticipants: 3
+      maxParticipants: 3
+      requireAllFamily: 0
+      forbiddenMask: 2
+      requiredGroups: 0d000000
+    existenceDuration: 20
+    spawnTimeMin: 10
+    spawnTimeMax: 40
+    workDuration: 13
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B-20,\u3010\u59B9\u59B9\u3011\u60C5\u7EEA+20,\u3010\u878D\u6D3D\u3011+15"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+40,\u3010\u5168\u5BB6\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 1
+      member: 15
+      delta: -20
+    - target: 3
+      member: 8
+      delta: 20
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 40
+    - target: 3
+      member: 15
+      delta: -20
+  - taskId: "popup_48_\u5BB6\u91CC\u9171\u6CB9\u7528\u5149\u4E86"
+    title: "\u5BB6\u91CC\u9171\u6CB9\u7528\u5149\u4E86"
+    icon: "\U0001F37E"
+    maxParticipants: 1
+    roleRequirementRaw: "\u54E5\u54E5 \u6216 \u59B9\u59B9"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0c000000
+    existenceDuration: 10
+    spawnTimeMin: 45
+    spawnTimeMax: 75
+    workDuration: 5
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+10,\u3010\u5988\u5988\u3011\u60C5\u7EEA+10"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 10
+    - target: 3
+      member: 2
+      delta: 10
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 15
+  - taskId: "popup_49_\u7238\u7238\u9493\u9C7C\u7A7A\u624B\u800C\u5F52"
+    title: "\u7238\u7238\u9493\u9C7C\u7A7A\u624B\u800C\u5F52"
+    icon: "\U0001F3A3"
+    maxParticipants: 2
+    roleRequirementRaw: "\u5168\u5BB6\u4EFB\u610F2\u4EBA"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0f000000
+    existenceDuration: 14
+    spawnTimeMin: 50
+    spawnTimeMax: 80
+    workDuration: 7
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+15,\u3010\u7238\u7238\u3011\u60C5\u7EEA+15"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+10,\u3010\u7238\u7238\u3011\u60C5\u7EEA-20"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 15
+    - target: 3
+      member: 1
+      delta: 15
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 10
+    - target: 3
+      member: 1
+      delta: -20
+  - taskId: "popup_50_\u5168\u5BB6\u798F\u7167\u7247\u76F8\u6846\u6389\u843D"
+    title: "\u5168\u5BB6\u798F\u7167\u7247\u76F8\u6846\u6389\u843D"
+    icon: "\U0001F5BC\uFE0F"
+    maxParticipants: 2
+    roleRequirementRaw: "\u7238\u7238 \u4E14 \u5988\u5988"
+    requirement:
+      minParticipants: 2
+      maxParticipants: 2
+      requireAllFamily: 0
+      forbiddenMask: 0
+      requiredGroups: 0100000002000000
+    existenceDuration: 12
+    spawnTimeMin: 60
+    spawnTimeMax: 90
+    workDuration: 6
+    successOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u878D\u6D3D+20,\u3010\u5168\u5BB6\u3011\u538B\u529B-5"
+    failureOutcomeRaw: "\u3010\u5168\u5BB6\u3011\u538B\u529B+20,\u3010\u5168\u5BB6\u3011\u878D\u6D3D-15"
+    successEffects:
+    - target: 2
+      member: 15
+      delta: 20
+    - target: 1
+      member: 15
+      delta: -5
+    failureEffects:
+    - target: 1
+      member: 15
+      delta: 20
+    - target: 2
+      member: 15
+      delta: -15

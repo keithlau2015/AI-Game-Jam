@@ -228,13 +228,24 @@ namespace Platformer.UI
             if (targetCanvas != null)
                 return targetCanvas;
 
-            var canvasObject = new GameObject("RandomEventCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            targetCanvas = canvasObject.GetComponent<Canvas>();
-            targetCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            targetCanvas.sortingOrder = 200;
-            var scaler = canvasObject.GetComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
+            var hud = GameplayHUDView.Instance;
+            if (hud != null)
+                targetCanvas = hud.GetComponentInParent<Canvas>();
+
+            if (targetCanvas == null)
+                targetCanvas = FindFirstObjectByType<Canvas>();
+
+            if (targetCanvas == null)
+            {
+                var canvasObject = new GameObject("RandomEventCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+                targetCanvas = canvasObject.GetComponent<Canvas>();
+                targetCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                targetCanvas.sortingOrder = 200;
+                var scaler = canvasObject.GetComponent<CanvasScaler>();
+                scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                scaler.referenceResolution = new Vector2(1920, 1080);
+            }
+
             return targetCanvas;
         }
 

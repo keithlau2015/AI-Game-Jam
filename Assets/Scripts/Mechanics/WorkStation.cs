@@ -31,10 +31,11 @@ namespace Platformer.Mechanics
         TaskAreaPhase taskPhase = TaskAreaPhase.WaitingToSpawn;
         TextMeshPro statusLabel;
         Color baseColor = Color.white;
+        PopupTaskBehaviour popupBehaviour;
 
         public IReadOnlyList<WorkerUnit> AssignedWorkers => assignedWorkers;
         public bool IsSpawned => mode == WorkStationMode.PermanentProduction || taskPhase == TaskAreaPhase.Active;
-        public bool IsActive => IsSpawned && !disabled && taskPhase != TaskAreaPhase.Completed && taskPhase != TaskAreaPhase.MissedSpawn;
+        public bool IsActive => IsSpawned && !disabled && taskPhase != TaskAreaPhase.Completed && taskPhase != TaskAreaPhase.MissedSpawn && taskPhase != TaskAreaPhase.Failed;
         public bool HasSpace => IsActive && assignedWorkers.Count < capacity;
         public float ActiveTaskRoundTimeBonus => IsActive && HasCorrectWorker() ? activeTaskRoundTimeBonus : 0f;
 
@@ -42,6 +43,10 @@ namespace Platformer.Mechanics
         {
             if (worker == null || !HasSpace)
                 return false;
+
+            EnsurePopupBehaviour();
+            if (popupBehaviour != null && popupBehaviour.IsPopupTask)
+                return popupBehaviour.CanAccept(worker);
 
             return MatchesMemberColor(worker);
         }
@@ -139,6 +144,24 @@ namespace Platformer.Mechanics
             if (mode != WorkStationMode.TimedTask || taskPhase != TaskAreaPhase.Active)
                 return;
 
+            EnsurePopupBehaviour();
+            if (popupBehaviour != null && popupBehaviour.IsPopupTask)
+            {
+                if (!popupBehaviour.HasValidAssignment())
+                {
+                    UpdateStatusLabel();
+                    return;
+                }
+
+                taskProgress += deltaTime;
+                UpdateStatusLabel();
+                if (taskProgress < taskDuration)
+                    return;
+
+                CompleteTask();
+                return;
+            }
+
             if (!HasCorrectWorker())
             {
                 UpdateStatusLabel();
@@ -168,6 +191,13 @@ namespace Platformer.Mechanics
             if (taskPhase == TaskAreaPhase.Completed)
                 return;
 
+            EnsurePopupBehaviour();
+            if (popupBehaviour != null && popupBehaviour.IsPopupTask)
+            {
+                popupBehaviour.OnTaskCompleted();
+                return;
+            }
+
             taskPhase = TaskAreaPhase.Completed;
             ReturnAllWorkersHome();
 
@@ -175,6 +205,30 @@ namespace Platformer.Mechanics
                 RoundController.Instance.AddOutput(taskOutputReward);
 
             SetVisible(false);
+        }
+
+        public void ForceActivatePopup()
+        {
+            taskPhase = TaskAreaPhase.Active;
+            taskProgress = 0f;
+            SetVisible(true);
+            UpdateStatusLabel();
+        }
+
+        public void ForceClosePopup()
+        {
+            taskPhase = TaskAreaPhase.Failed;
+            ReturnAllWorkersHome();
+            SetVisible(false);
+            gameObject.SetActive(false);
+        }
+
+        public void ForceCompletePopup()
+        {
+            taskPhase = TaskAreaPhase.Completed;
+            ReturnAllWorkersHome();
+            SetVisible(false);
+            gameObject.SetActive(false);
         }
 
         public void SetDisabled(bool value)
@@ -256,7 +310,9 @@ namespace Platformer.Mechanics
                 statusLabel.gameObject.SetActive(true);
                 if (taskPhase == TaskAreaPhase.Active)
                 {
-                    var memberText = GetMemberRestrictionLabel();
+                    var memberText = popupBehaviour != null && popupBehaviour.IsPopupTask
+                        ? popupBehaviour.RequirementLabel
+                        : GetMemberRestrictionLabel();
                     var progress = taskDuration > 0f ? Mathf.Clamp01(taskProgress / taskDuration) : 0f;
                     statusLabel.text = $"{memberText} {assignedWorkers.Count}/{capacity} {Mathf.RoundToInt(progress * 100f)}%";
                     return;
@@ -289,6 +345,12 @@ namespace Platformer.Mechanics
             statusLabel.fontSize = 2f;
             statusLabel.alignment = TextAlignmentOptions.Center;
             statusLabel.color = Color.white;
+        }
+
+        void EnsurePopupBehaviour()
+        {
+            if (popupBehaviour == null)
+                popupBehaviour = GetComponent<PopupTaskBehaviour>();
         }
     }
 }

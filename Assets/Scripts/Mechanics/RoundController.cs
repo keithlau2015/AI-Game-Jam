@@ -16,6 +16,8 @@ namespace Platformer.Mechanics
         SessionModel session;
         float productionBuffer;
         TaskAreaManager taskAreaManager;
+        PopupTaskSpawner popupTaskSpawner;
+        readonly List<WorkStation> dynamicStations = new List<WorkStation>();
 
         void Awake()
         {
@@ -24,9 +26,33 @@ namespace Platformer.Mechanics
             taskAreaManager = GetComponent<TaskAreaManager>();
             if (taskAreaManager == null)
                 taskAreaManager = gameObject.AddComponent<TaskAreaManager>();
+            popupTaskSpawner = GetComponent<PopupTaskSpawner>();
             if (stations == null || stations.Length == 0)
                 stations = GetComponentsInChildren<WorkStation>(true);
-            taskAreaManager.taskStations = stations;
+            SyncTaskStations();
+        }
+
+        void SyncTaskStations()
+        {
+            if (taskAreaManager == null)
+                return;
+
+            if (stations == null || stations.Length == 0)
+            {
+                taskAreaManager.taskStations = dynamicStations.ToArray();
+                return;
+            }
+
+            if (dynamicStations.Count == 0)
+            {
+                taskAreaManager.taskStations = stations;
+                return;
+            }
+
+            var merged = new List<WorkStation>(stations.Length + dynamicStations.Count);
+            merged.AddRange(stations);
+            merged.AddRange(dynamicStations);
+            taskAreaManager.taskStations = merged.ToArray();
         }
 
         void OnDestroy()
@@ -54,6 +80,8 @@ namespace Platformer.Mechanics
             var elapsed = session.round.timeLimit - session.round.timeRemaining;
             if (taskAreaManager != null)
                 taskAreaManager.Tick(deltaTime, elapsed);
+            if (popupTaskSpawner != null)
+                popupTaskSpawner.Tick(deltaTime, elapsed);
 
             var timeBonus = taskAreaManager != null ? taskAreaManager.GetRoundTimeBonus() : 0f;
             session.round.timeRemaining -= deltaTime * (1f + timeBonus);
@@ -98,6 +126,9 @@ namespace Platformer.Mechanics
             session.round.dragEnabled = true;
             session.sessionStarted = true;
             productionBuffer = 0f;
+            dynamicStations.Clear();
+            if (popupTaskSpawner != null)
+                popupTaskSpawner.PrepareForRound();
             if (taskAreaManager != null)
                 taskAreaManager.PrepareForRound();
             else
@@ -152,6 +183,34 @@ namespace Platformer.Mechanics
                 return;
 
             candidates[Random.Range(0, candidates.Count)].SetDisabled(true);
+        }
+
+        public void RegisterStation(WorkStation station)
+        {
+            if (station == null || dynamicStations.Contains(station))
+                return;
+            dynamicStations.Add(station);
+            SyncTaskStations();
+        }
+
+        public void UnregisterStation(WorkStation station)
+        {
+            if (station == null)
+                return;
+            dynamicStations.Remove(station);
+            SyncTaskStations();
+        }
+
+        public WorkStation[] GetAllStations()
+        {
+            if (dynamicStations.Count == 0)
+                return stations;
+
+            var merged = new List<WorkStation>();
+            if (stations != null)
+                merged.AddRange(stations);
+            merged.AddRange(dynamicStations);
+            return merged.ToArray();
         }
     }
 }
