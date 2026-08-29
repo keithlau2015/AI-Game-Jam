@@ -15,7 +15,7 @@ namespace Platformer.Model
         public int rapport = 50;
         public int eventsResolved;
         public bool sessionStarted;
-        public const int TotalDays = 4;
+        public const int TotalDays = 1;
         public int currentDay = 1;
         public RoundEndReason lastEndReason = RoundEndReason.None;
 

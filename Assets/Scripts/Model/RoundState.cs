@@ -6,7 +6,7 @@ namespace Platformer.Model
     [Serializable]
     public class RoundState
     {
-        public float timeLimit = 90f;
+        public float timeLimit = 120f;
         public float timeRemaining;
         public int currentOutput;
         public float globalProductionMultiplier = 1f;

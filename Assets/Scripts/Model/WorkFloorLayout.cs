@@ -43,6 +43,8 @@ namespace Platformer.Model
         public Vector2 normalizedPosition = new Vector2(0.5f, 0.5f);
         public WorkStationMode mode = WorkStationMode.PermanentProduction;
         public WorkerRole requiredRole = WorkerRole.Any;
+        public bool acceptAnyMember;
+        public WorkerColor allowedMemberColors = WorkerColor.None;
         public int capacity = 1;
         public float outputPerWorker = 3f;
         public float spawnWindowStart = 10f;

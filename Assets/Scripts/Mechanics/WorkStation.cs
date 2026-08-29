@@ -10,6 +10,8 @@ namespace Platformer.Mechanics
         public string stationId;
         public WorkStationMode mode = WorkStationMode.PermanentProduction;
         public WorkerRole requiredRole = WorkerRole.Any;
+        public bool acceptAnyMember;
+        public WorkerColor allowedMemberColors = WorkerColor.All;
         public int capacity = 1;
         public float outputPerWorker = 3f;
         public bool disabled;
@@ -40,9 +42,23 @@ namespace Platformer.Mechanics
         {
             if (worker == null || !HasSpace)
                 return false;
-            if (requiredRole != WorkerRole.Any && worker.role != requiredRole)
+
+            return MatchesMemberColor(worker);
+        }
+
+        public bool MatchesMemberColor(WorkerUnit worker)
+        {
+            if (worker == null)
                 return false;
-            return true;
+
+            if (acceptAnyMember)
+                return true;
+
+            var allowed = ResolveAllowedMemberColors();
+            if (allowed == WorkerColor.All)
+                return true;
+
+            return (allowed & worker.GetMemberColor()) != 0;
         }
 
         public bool TryAssign(WorkerUnit worker)
@@ -191,11 +207,28 @@ namespace Platformer.Mechanics
 
         bool IsCorrectWorker(WorkerUnit worker)
         {
-            if (worker == null)
-                return false;
+            return MatchesMemberColor(worker);
+        }
+
+        public WorkerColor GetAllowedMemberColors()
+        {
+            return ResolveAllowedMemberColors();
+        }
+
+        WorkerColor ResolveAllowedMemberColors()
+        {
+            if (allowedMemberColors != WorkerColor.None)
+                return allowedMemberColors;
+
             if (requiredRole == WorkerRole.Any)
-                return true;
-            return worker.role == requiredRole;
+                return WorkerColor.All;
+
+            return WorkerColorRules.FromRole(requiredRole);
+        }
+
+        string GetMemberRestrictionLabel()
+        {
+            return WorkerColorRules.BuildAllowedColorsLabel(acceptAnyMember, ResolveAllowedMemberColors());
         }
 
         void SetVisible(bool visible)
@@ -223,9 +256,9 @@ namespace Platformer.Mechanics
                 statusLabel.gameObject.SetActive(true);
                 if (taskPhase == TaskAreaPhase.Active)
                 {
-                    var roleText = requiredRole == WorkerRole.Any ? "Any" : requiredRole.ToString();
+                    var memberText = GetMemberRestrictionLabel();
                     var progress = taskDuration > 0f ? Mathf.Clamp01(taskProgress / taskDuration) : 0f;
-                    statusLabel.text = $"{roleText} {assignedWorkers.Count}/{capacity} {Mathf.RoundToInt(progress * 100f)}%";
+                    statusLabel.text = $"{memberText} {assignedWorkers.Count}/{capacity} {Mathf.RoundToInt(progress * 100f)}%";
                     return;
                 }
 
@@ -234,7 +267,7 @@ namespace Platformer.Mechanics
             }
 
             statusLabel.gameObject.SetActive(true);
-            statusLabel.text = $"{requiredRole} {assignedWorkers.Count}/{capacity}";
+            statusLabel.text = $"{GetMemberRestrictionLabel()} {assignedWorkers.Count}/{capacity}";
         }
 
         void EnsureStatusLabel()

@@ -40,7 +40,26 @@ namespace Platformer.Mechanics
             if (station == null)
                 return role;
 
+            if (station.acceptAnyMember)
+                return role;
+
+            var allowed = station.GetAllowedMemberColors();
+            if (allowed == WorkerColor.All)
+                return role;
+
+            if (allowed == WorkerColor.Orange)
+                return WorkerRole.Builder;
+            if (allowed == WorkerColor.Blue)
+                return WorkerRole.Analyst;
+            if (allowed == WorkerColor.Green)
+                return WorkerRole.Courier;
+
             return station.requiredRole == WorkerRole.Any ? role : station.requiredRole;
+        }
+
+        public WorkerColor GetMemberColor()
+        {
+            return WorkerColorRules.FromRole(role);
         }
 
         public float GetEfficiencyForStation(WorkStation station)
@@ -93,7 +112,7 @@ namespace Platformer.Mechanics
                 spriteRenderer.sortingOrder = 5;
 
             var slotIndex = station.AssignedWorkers.Count - 1;
-            var offset = new Vector3((slotIndex % 2) * 0.6f - 0.3f, (slotIndex / 2) * 0.5f, 0f);
+            var offset = GetSlotOffset(slotIndex);
             transform.position = station.transform.position + offset;
 
             var ev = Schedule<WorkerAssigned>();
@@ -120,6 +139,18 @@ namespace Platformer.Mechanics
         {
             if (pickCollider != null)
                 pickCollider.enabled = enabled;
+        }
+
+        static Vector3 GetSlotOffset(int slotIndex)
+        {
+            return slotIndex switch
+            {
+                0 => new Vector3(-0.45f, 0.3f, 0f),
+                1 => new Vector3(0.45f, 0.3f, 0f),
+                2 => new Vector3(-0.45f, -0.3f, 0f),
+                3 => new Vector3(0.45f, -0.3f, 0f),
+                _ => new Vector3((slotIndex % 2) * 0.6f - 0.3f, (slotIndex / 2) * 0.5f, 0f)
+            };
         }
 
         void ApplyVisual()

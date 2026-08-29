@@ -23,7 +23,7 @@ namespace Platformer.Mechanics
         };
 
         public WorkFloorLayout floorLayout;
-        public float timeLimit = 90f;
+        public float timeLimit = 120f;
         public bool autoStartOnLoad = true;
         public Canvas mainCanvas;
         public GameObject startPanel;
@@ -343,6 +343,10 @@ namespace Platformer.Mechanics
             var station = stationObject.GetComponent<WorkStation>();
             station.stationId = definition.stationId;
             station.requiredRole = definition.requiredRole;
+            station.acceptAnyMember = definition.acceptAnyMember;
+            station.allowedMemberColors = definition.allowedMemberColors != WorkerColor.None
+                ? definition.allowedMemberColors
+                : WorkerColorRules.FromRole(definition.requiredRole);
             station.mode = definition.mode;
             station.capacity = definition.capacity;
             station.outputPerWorker = definition.outputPerWorker;
