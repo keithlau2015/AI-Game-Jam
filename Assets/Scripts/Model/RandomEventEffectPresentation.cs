@@ -14,7 +14,7 @@ namespace Platformer.Model
             if (stats.Count == 0)
                 return string.Empty;
 
-            return "Affects: " + string.Join(", ", stats);
+            return "影響：" + string.Join(" / ", stats);
         }
 
         public static string BuildResultLabel(RandomEventOption option)
@@ -24,7 +24,7 @@ namespace Platformer.Model
 
             var lines = CollectGlobalStatChanges(option);
             if (lines.Count == 0)
-                return "No family stat change.";
+                return "家庭數值沒有變化";
 
             return string.Join("\n", lines);
         }
@@ -34,6 +34,7 @@ namespace Platformer.Model
             var names = new List<string>();
             TryAddName(names, option.effectType);
             TryAddName(names, option.secondaryEffectType);
+            TryAddName(names, option.tertiaryEffectType);
             return names;
         }
 
@@ -42,6 +43,7 @@ namespace Platformer.Model
             var lines = new List<string>();
             TryAddChange(lines, option.effectType, option.value);
             TryAddChange(lines, option.secondaryEffectType, option.secondaryValue);
+            TryAddChange(lines, option.tertiaryEffectType, option.tertiaryValue);
             return lines;
         }
 
@@ -69,9 +71,9 @@ namespace Platformer.Model
         {
             return effectType switch
             {
-                RandomEventEffectType.AddHope => "Hope",
-                RandomEventEffectType.ModifyStress => "Stress",
-                RandomEventEffectType.ModifyRapport => "Rapport",
+                RandomEventEffectType.AddHope => "希望",
+                RandomEventEffectType.ModifyStress => "情緒",
+                RandomEventEffectType.ModifyRapport => "和諧",
                 _ => null
             };
         }

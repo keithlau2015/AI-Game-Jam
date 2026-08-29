@@ -13,6 +13,8 @@ namespace Platformer.Model
             ApplySingle(option.effectType, option.value, option.duration, session);
             if (option.secondaryEffectType != RandomEventEffectType.None)
                 ApplySingle(option.secondaryEffectType, option.secondaryValue, option.duration, session);
+            if (option.tertiaryEffectType != RandomEventEffectType.None)
+                ApplySingle(option.tertiaryEffectType, option.tertiaryValue, option.duration, session);
         }
 
         static void ApplySingle(RandomEventEffectType effectType, float value, float duration, SessionModel session)
